@@ -1,7 +1,0 @@
-/Users/peterwerk/Projects/ToolKitConsole/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/Users/peterwerk/Projects/ToolKitConsole/GeneralUtilities/bin/Debug/GeneralUtilities.dll.mdb
-/Users/peterwerk/Projects/ToolKitConsole/GeneralUtilities/bin/Debug/GeneralUtilities.dll
-/Users/peterwerk/Projects/ToolKitConsole/obj/Debug/GeneralUtilities.dll
-/Users/peterwerk/Projects/ToolKitConsole/obj/Debug/GeneralUtilities.dll.mdb
-/Users/peterwerk/Projects/ToolKitConsole/GeneralUtilities/bin/Debug/ToolKitConsole.exe
-/Users/peterwerk/Projects/ToolKitConsole/GeneralUtilities/bin/Debug/ToolKitConsole.exe.mdb
