@@ -1,0 +1,5 @@
+/Users/peterwerk/Projects/ToolKitConsole/ToolKitConsole/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/peterwerk/Projects/ToolKitConsole/ToolKitConsole/bin/Debug/ToolKitConsole.exe.mdb
+/Users/peterwerk/Projects/ToolKitConsole/ToolKitConsole/bin/Debug/ToolKitConsole.exe
+/Users/peterwerk/Projects/ToolKitConsole/ToolKitConsole/obj/x86/Debug/ToolKitConsole.exe
+/Users/peterwerk/Projects/ToolKitConsole/ToolKitConsole/obj/x86/Debug/ToolKitConsole.exe.mdb

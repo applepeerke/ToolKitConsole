@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{88ED06E7-F3E9-41C4-9A75-39A0FCCD3411}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ToolKit.NUnit.Test</RootNamespace>
+    <AssemblyName>ToolKit.NUnit.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ToolKitTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToolKitConsole.Test\ToolKitConsole.Test.csproj">
+      <Project>{D00CCA4D-5763-4836-A4D1-09A4ABBD9499}</Project>
+      <Name>ToolKitConsole.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolKitConsole\UtilConsole.csproj">
+      <Project>{C08387CF-B3DF-4D31-96AF-FBDAC96D18DA}</Project>
+      <Name>UtilConsole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeneralUtilities.csproj">
+      <Project>{F7C63B4A-A60F-4F02-8FF7-75840BCD54B2}</Project>
+      <Name>GeneralUtilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

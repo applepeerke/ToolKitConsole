@@ -1,0 +1,12 @@
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKit.NUnit.Test.dll.mdb
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKit.NUnit.Test.dll
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/obj/Debug/ToolKit.NUnit.Test.dll
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/obj/Debug/ToolKit.NUnit.Test.dll.mdb
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/nunit.framework.dll
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKitConsole.Test.exe
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKitConsole.Test.exe.mdb
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKitConsole.exe
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKitConsole.exe.mdb
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/GeneralUtilities.dll
+/Users/peterwerk/Projects/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/GeneralUtilities.dll.mdb
