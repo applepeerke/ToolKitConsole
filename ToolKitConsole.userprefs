@@ -1,24 +1,25 @@
 ﻿<Properties StartupConfiguration="{D00CCA4D-5763-4836-A4D1-09A4ABBD9499}|Default">
   <MonoDevelop.Ide.ItemProperties.XmlData PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole.Test/ToolKitStub.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GeneralUtilities/LogUtil.cs">
     <Files>
-      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="5" Column="7" />
-      <File FileName="GeneralUtilities/OutputWrapper.cs" Line="93" Column="43" />
-      <File FileName="GeneralUtilities/BL/XmlManager.cs" Line="175" Column="1" />
+      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="78" Column="1" />
+      <File FileName="GeneralUtilities/OutputWrapper.cs" Line="70" Column="7" />
       <File FileName="GeneralUtilities/IOutput.cs" Line="6" Column="29" />
-      <File FileName="GeneralUtilities/JournalUtil.cs" Line="279" Column="22" />
-      <File FileName="GeneralUtilities/LogUtil.cs" Line="86" Column="32" />
-      <File FileName="GeneralUtilities/ErrorControl.cs" Line="276" Column="42" />
-      <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="33" Column="23" />
+      <File FileName="GeneralUtilities/JournalUtil.cs" Line="166" Column="3" />
+      <File FileName="GeneralUtilities/LogUtil.cs" Line="498" Column="4" />
+      <File FileName="GeneralUtilities/ErrorControl.cs" Line="14" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ToolKitConsole" expanded="True">
-            <Node name="GeneralUtilities" expanded="True" />
+            <Node name="GeneralUtilities" expanded="True">
+              <Node name="BL" expanded="True" />
+              <Node name="Converters" expanded="True" />
+              <Node name="LogUtil.cs" selected="True" />
+            </Node>
             <Node name="ToolKitConsole.Test" expanded="True">
               <Node name="References" expanded="True" />
-              <Node name="ToolKitStub.cs" selected="True" />
             </Node>
             <Node name="ToolKitNUnitTest" expanded="True">
               <Node name="References" expanded="True" />
@@ -28,7 +29,15 @@
       </Pad>
       <Pad Id="MonoDevelop.UnitTesting.TestPad">
         <State name="__root__">
-          <Node name="ToolKitConsole" expanded="True" selected="True" />
+          <Node name="ToolKitConsole" expanded="True">
+            <Node name="ToolKitNUnitTest" expanded="True">
+              <Node name="ToolKitNUnitTest" expanded="True">
+                <Node name="ToolKitTest" expanded="True">
+                  <Node name="CsvToXml" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
