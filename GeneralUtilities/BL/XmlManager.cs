@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace GeneralUtilities
 {
-	public class XmlManager : IDisposable
+	public class XmlManager : IDisposable, IOutput
 	{
 		const string CLOSE = "CLOSE";
 		const string EMPTY = "";
@@ -16,6 +16,8 @@ namespace GeneralUtilities
 		const string TYPE = "type";
 		const string VALUE = "value";
 		const string TABLE = "table";
+		const string XMLLOG = "xmlLog";
+		const string XMLLOGROW = "row";
 
 		private OutputWrapper ow;
 		private bool Loaded = false;
@@ -312,6 +314,12 @@ namespace GeneralUtilities
 		public void Dispose()
 		{
 			Save();
+		}
+
+		public void WriteLine(string line)
+		{
+			if (string.IsNullOrEmpty(line)) return;
+			InsertRow(XMLLOG, XMLLOGROW, line);
 		}
 		#endregion Private methods
 	}

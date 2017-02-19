@@ -30,7 +30,7 @@ namespace ToolKitConsole.Test
 				using (xm = new XmlManager(configXml))
 				{
 					ow.XmlManager = xm;
-					LogUtil.Start(Path.Combine(rootDir, configXml));
+					LogUtil.Instance.Start(Path.Combine(rootDir, configXml));
 					Process();
 
 				}
@@ -144,7 +144,7 @@ namespace ToolKitConsole.Test
 				}
 				catch (Exception e)
 				{
-					LogUtil.AddException(e);
+					LogUtil.Instance.AddException(e);
 				}
 			}
 		}

@@ -13,114 +13,126 @@ namespace GeneralUtilities
 {
 
 	// 2015-05-04 PHE First version.
-	public static class LogUtil
+	public class LogUtil : IOutput
 	{
-		#region Definitions
-		private static string configXml = string.Empty; 
-		private static StreamWriter _sw;
-		private static StringBuilder _p_Data;
-		private static StringBuilder _currentData = new StringBuilder();
+		private string configXml = string.Empty; 
+		private StreamWriter _sw;
+		private StringBuilder _p_Data;
+		private StringBuilder _currentData = new StringBuilder();
 		// private StringBuilder _line;
-		private static bool _isStarted = false;
-		private static bool _isSwitchedOn;
-		private static bool _useDefaults = false;
-		private static bool _logSameText;
+		private bool _isStarted = false;
+		private bool _isSwitchedOn;
+		private bool _useDefaults = false;
+		private bool _logSameText;
 		// Show in log
-		private static bool _b_LogId = true;
-		private static bool _logTimeStamp = true;
-		private static bool _logSeverity = false;
-		private static bool _logReturned = true;
-		private static bool _logMethodName = true;
-		private static bool _logClassName = true;
-		private static bool _logDuration = true;
-		private static bool _logSameCount = true;
-		private static bool _logCategory = true;
+		private bool _b_LogId = true;
+		private bool _logTimeStamp = true;
+		private bool _logSeverity = false;
+		private bool _logReturned = true;
+		private bool _logMethodName = true;
+		private bool _logClassName = true;
+		private bool _logDuration = true;
+		private bool _logSameCount = true;
+		private bool _logCategory = true;
 
 		// Filters
-		private static int _logThresholdMillis = 1;
-		private static string _logFilterCategory = "All";
+		private int _logThresholdMillis = 1;
+		private string _logFilterCategory = "All";
 		// Stack
-		private static Dictionary<int, DateTime> _stack;
-		private static int _logId = 0;
+		private Dictionary<int, DateTime> _stack;
+		private int _logId = 0;
 
-		private static string _logFileDir = string.Empty;
-		private static string _logFileName = "LogUtil.txt";
-		private static string _logPath;
-		private static bool _logFileNameWithTimestamp = true;
-		private static int _sameDataCount = 0;
+		private string _logFileDir = string.Empty;
+		private string _logFileName = "LogUtil.txt";
+		private string _logPath;
+		private bool _logFileNameWithTimestamp = true;
+		private int _sameDataCount = 0;
 		// Widths
-		private static int _textWidth = 160;
-		private static int _w_LogId;
-		private static int _w_Timestamp;
-		private static int _w_Returned;
-		private static int _w_ClassName;
-		private static int _w_MethodName;
-		private static int _w_Severity;
-		private static int _w_SameCount;
-		private static int _w_Duration;
-		private static int _w_Category;
+		private int _textWidth = 160;
+		private int _w_LogId;
+		private int _w_Timestamp;
+		private int _w_Returned;
+		private int _w_ClassName;
+		private int _w_MethodName;
+		private int _w_Severity;
+		private int _w_SameCount;
+		private int _w_Duration;
+		private int _w_Category;
 
 		// Previous line values
-		private static int _p_LogId = 0;
-		private static string _p_Timestamp;
-		private static string _p_Returned;
-		private static string _p_ClassName;
-		private static string _p_MethodName;
-		private static string _p_Severity;
-		private static int _p_SameCount = 0;
-		private static int _p_Duration = 0;
-		private static string _p_Category;
+		private int _p_LogId = 0;
+		private string _p_Timestamp;
+		private string _p_Returned;
+		private string _p_ClassName;
+		private string _p_MethodName;
+		private string _p_Severity;
+		private int _p_SameCount = 0;
+		private int _p_Duration = 0;
+		private string _p_Category;
 
 		const string _STRIPECHAR = "-";
 		const string _BLANK = " ";
 		const string _EMPTY = "";
 		const string _ERROR = "*ERROR";
 
-		// properties
-		public static bool isSwitchedOn
+		#region properties
+		private static LogUtil _instance;
+		public static LogUtil Instance
+		{ 
+			get 
+			{
+				if (_instance == null)
+				{ 
+					_instance = new LogUtil();
+				}
+				return _instance; 
+			} 
+		}
+
+		public bool isSwitchedOn
 		{
 			get { return _isSwitchedOn; }
 		}
-		public static bool useDefaults
+		public bool useDefaults
 		{
 			get { return _useDefaults; }
 		}
-		public static bool logSeverity
+		public bool logSeverity
 		{
 			get { return _logSeverity; }
 			set { _logSeverity = value; }
 		}
-		public static bool logTimeStamp
+		public bool logTimeStamp
 		{
 			get { return _logTimeStamp; }
 			set { _logTimeStamp = value; }
 		}
-		public static bool logReturned
+		public bool logReturned
 		{
 			get { return _logReturned; }
 			set { _logReturned = value; }
 		}
-		public static bool logClassName
+		public bool logClassName
 		{
 			get { return _logClassName; }
 			set { _logClassName = value; }
 		}
-		public static bool logMethodName
+		public bool logMethodName
 		{
 			get { return _logMethodName; }
 			set { _logMethodName = value; }
 		}
-		public static int TextWidth
+		public int TextWidth
 		{
 			get { return _textWidth; }
 			set { _textWidth = value; }
 		}
-		public static bool logCategory
+		public bool logCategory
 		{
 			get { return _logCategory; }
 			set { _logCategory = value; }
 		}
-		public static string LogFileDir
+		public string LogFileDir
 		{
 			get { return _logFileDir; }
 			set { _logFileDir = value; }
@@ -128,7 +140,7 @@ namespace GeneralUtilities
 		#endregion
 		#region Constructor
 		#endregion
-		public static void Start(string configPath)
+		public void Start(string configPath)
 		{
 			if (!_isStarted)
 			{
@@ -140,7 +152,7 @@ namespace GeneralUtilities
 		}
 
 		#region Add Line
-		static void LogTitle()
+		void LogTitle()
 		{
 			// Title bar (for every instance)
 			if (_sw != null)
@@ -157,13 +169,14 @@ namespace GeneralUtilities
 				line.Append(GetSupportedCell("Method name", _w_MethodName, _logMethodName));
 				line.Append(GetSupportedCell("Return", _w_Returned, _logReturned));
 				line.Append("Data");
-				line = WriteLine(line);
+				WriteLine(line.ToString());
+				line = new StringBuilder();
 				AddStripe();
 			}
 
 		}
 		// Start a logline, returning the stack logId.
-		public static int StartLine()
+		public int StartLine()
 		{
 			if (_isSwitchedOn)
 			{
@@ -173,17 +186,17 @@ namespace GeneralUtilities
 			return _logId;
 		}
 		// Add a line from a string 
-		public static void AddLine(string data, string category = _EMPTY, int logId = 0, string returned = _EMPTY, string className = _EMPTY, string methodName = _EMPTY, string severity = _EMPTY)
+		public void AddLine(string data, string category = _EMPTY, int logId = 0, string returned = _EMPTY, string className = _EMPTY, string methodName = _EMPTY, string severity = _EMPTY)
 		{
 			AddLine(new string[] { data }, category, logId, returned, className, methodName, severity);
 		}
 		// Add a line from an exception
-		public static void AddLine(string data, string category, Exception ex, int logId = 0, string returned = _EMPTY, string className = _EMPTY, string methodName = _EMPTY, string severity = _EMPTY)
+		public void AddLine(string data, string category, Exception ex, int logId = 0, string returned = _EMPTY, string className = _EMPTY, string methodName = _EMPTY, string severity = _EMPTY)
 		{
 			AddException(ex, data);
 		}
 		// Add a line from a string array - the basic one
-		public static void AddLine(string[] data, string category = _EMPTY, int logId = 0, string returned = _EMPTY, string className = _EMPTY, string methodName = _EMPTY, string severity = _EMPTY)
+		public void AddLine(string[] data, string category = _EMPTY, int logId = 0, string returned = _EMPTY, string className = _EMPTY, string methodName = _EMPTY, string severity = _EMPTY)
 		{
 			if (_isSwitchedOn)
 				try
@@ -251,7 +264,6 @@ namespace GeneralUtilities
 					_p_Category = category;
 					_p_Returned = returned;
 					_p_Data = new StringBuilder(_currentData.ToString());
-					// _line = WriteLine(_line);
 
 				}
 				catch (ArgumentNullException ex)
@@ -275,11 +287,11 @@ namespace GeneralUtilities
 		//{
 		//    return this;
 		//}
-		public static bool GetSwitchedOn()
+		public bool GetSwitchedOn()
 		{
 			return _isSwitchedOn;
 		}
-		public static void Dispose()
+		public void Dispose()
 		{
 			if (_sw != null)
 			{
@@ -290,16 +302,15 @@ namespace GeneralUtilities
 			// this.Dispose();
 		}
 
-
 		// Add a -------- 
-		public static void AddStripe()
+		public void AddStripe()
 		{
 			if (_sw == null) return;
 
 			for (int i = 0; i < _textWidth; i++)
 				if (i == TextWidth - 1)
 				{
-					_sw.WriteLine(_STRIPECHAR);
+					WriteLine(_STRIPECHAR);
 				}
 				else
 				{
@@ -308,13 +319,13 @@ namespace GeneralUtilities
 		}
 
 		// Add a free text 
-		public static void AddText(string text)
+		public void AddText(string text)
 		{
 			if (_sw == null) return;
-			_sw.WriteLine(text);
+			WriteLine(text);
 		}
 		// Wrap up
-		public static void Close()
+		public void Close()
 		{
 			if (_sw != null)
 			{
@@ -322,10 +333,16 @@ namespace GeneralUtilities
 				_sw.Close();
 			}
 		}
+
+		public void WriteLine(string line)
+		{
+			if (string.IsNullOrEmpty(line)) return;
+			_sw.WriteLine(line);
+		}
 		#endregion
 		#region Private methods
 		// Initialize
-		private static void Initialize()
+		private void Initialize()
 		{
 			// Is Log file already created? Then return.
 			if (_sw != null) return;
@@ -427,41 +444,41 @@ namespace GeneralUtilities
 				// Using not possible when "leave open" not possible in .NET 3.5
 				//using (_sw)
 				AddStripe();
-				_sw.WriteLine("S t a r t    L o g U t i l");
+				WriteLine("S t a r t    L o g U t i l");
 				AddStripe();
-				_sw.WriteLine("Log file . . . . . . . : " + _logFileName);
-				_sw.WriteLine("Ms threshold . . . . . : " + _logThresholdMillis.ToString());
-				_sw.WriteLine("Category . . . . . . . : " + _logFilterCategory.ToString());
+				WriteLine("Log file . . . . . . . : " + _logFileName);
+				WriteLine("Ms threshold . . . . . : " + _logThresholdMillis.ToString());
+				WriteLine("Category . . . . . . . : " + _logFilterCategory.ToString());
 			}
 		}
 		// Error handling
-		public static void AddException(Exception ex, string firstText = _EMPTY, bool stacktrace = true, bool external = true)
+		public void AddException(Exception ex, string firstText = _EMPTY, bool stacktrace = true, bool external = true)
 		{
 			if (_sw != null)
 			{
 				if (firstText != _EMPTY)
 				{
-					_sw.WriteLine(firstText);
+					WriteLine(firstText);
 					AddStripe();
 				}
-				_sw.WriteLine("Message . . . .: " + ex.Message);
-				if (ex.InnerException != null) _sw.WriteLine("Inner Exception: " + ex.InnerException.Message);
+				WriteLine("Message . . . .: " + ex.Message);
+				if (ex.InnerException != null) WriteLine("Inner Exception: " + ex.InnerException.Message);
 				if (stacktrace && ex.StackTrace != null)
 				{
-					_sw.WriteLine("Stack trace: ");
-					_sw.WriteLine(ex.StackTrace);
+					WriteLine("Stack trace: ");
+					WriteLine(ex.StackTrace);
 				}
 				AddStripe();
 				if (!external)
 				{
-					_sw.WriteLine("Logging has ended ABNORMALLY");
+					WriteLine("Logging has ended ABNORMALLY");
 					AddStripe();
 					_isSwitchedOn = false;
 				}
 			}
 		}
 		// Create a Log file
-		private static void CreateLogFile(string path, string fileName, int width)
+		private void CreateLogFile(string path, string fileName, int width)
 		{
 			if (_sw == null)
 			{
@@ -477,13 +494,13 @@ namespace GeneralUtilities
 			}
 		}
 		// Get supported Cell
-		private static string GetSupportedCell(string input, int cellWidth, bool isSupported, bool rightadjust = false)
+		private string GetSupportedCell(string input, int cellWidth, bool isSupported, bool rightadjust = false)
 		{
 			string o = (isSupported) ? GetCell(input, cellWidth, rightadjust) : _EMPTY;
 			return o;
 		}
 		// Get cell appended with blanks and with width constraint.
-		private static string GetCell(string s, int cellWidth, bool rightAdjust = false)
+		private string GetCell(string s, int cellWidth, bool rightAdjust = false)
 		{
 			if (rightAdjust)
 			{
@@ -494,14 +511,9 @@ namespace GeneralUtilities
 				return s.Trim().PadRight(cellWidth);
 			}
 		}
+
 		// Write line and reset the text
-		private static StringBuilder WriteLine(StringBuilder sb)
-		{
-			_sw.WriteLine(sb.ToString());
-			return new StringBuilder();
-		}
-		// Write line and reset the text
-		private static void WriteLinePrevious()
+		private void WriteLinePrevious()
 		{
 			// Populate previous line. Use current "same count" and recalculated duration.
 			// Populate previous values
@@ -519,19 +531,19 @@ namespace GeneralUtilities
 				sb.Append(GetSupportedCell(_p_MethodName, _w_MethodName, _logMethodName));
 				sb.Append(GetSupportedCell(_p_Returned, _w_Returned, _logReturned));
 				sb.Append(_p_Data.ToString());
-				_sw.WriteLine(sb.ToString());
+				WriteLine(sb.ToString());
 
 			}
 		}
 
 		// Get Timestamp
-		private static string GetTimeStamp()
+		private string GetTimeStamp()
 		{
 			return DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff ");
 		}
 
 		// Get Duration
-		private static double GetDurationFromLogIdTillNow(int id)
+		private double GetDurationFromLogIdTillNow(int id)
 		{
 			double ms = 0;
 			DateTime started;
@@ -540,8 +552,7 @@ namespace GeneralUtilities
 				ms = (started > DateTime.MinValue) ? DateTime.UtcNow.ToLocalTime().Subtract(started).TotalMilliseconds : 0;
 			}
 			return ms;
-		}
-
+		} 
 		#endregion
 	}
 }

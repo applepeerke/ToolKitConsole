@@ -52,7 +52,7 @@ namespace GeneralUtilities
 
                 // Configuration
                 textElements = new List<string>();
-                _isLogUtilSwitchedOn = LogUtil.GetSwitchedOn();
+				_isLogUtilSwitchedOn = LogUtil.Instance.GetSwitchedOn();
 
                 // Data
                 errorMessage = new DataTable();
@@ -272,7 +272,7 @@ namespace GeneralUtilities
 
                     if (_isLogUtilSwitchedOn && log)
                     {
-                        LogUtil.AddLine(messageText, "*ERROR", 0, _EMPTY, "ErrorControl", "EvaluateResult");
+                        LogUtil.Instance.AddLine(messageText, "*ERROR", 0, _EMPTY, "ErrorControl", "EvaluateResult");
                     }
                 }
             }

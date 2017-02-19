@@ -75,7 +75,6 @@ namespace ToolKitNUnitTest
 			// No configXML, then no XmlManager possible
 			ow = new OutputWrapper(GeneralUtilities.Data.Output.All);
 			Assert.AreEqual(ow.IsOutputSwitchedOn, true);
-			Assert.AreEqual(ow.XmlLogTable, "xmlLog");
 			Assert.IsNull(ow.XmlManager);
 			// configXml, then XmlManager possible
 			ow = new OutputWrapper(GeneralUtilities.Data.Output.All, configXml);

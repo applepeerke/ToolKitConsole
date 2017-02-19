@@ -68,6 +68,7 @@
     <Compile Include="GeneralUtilities\Model\XmlObject.cs" />
     <Compile Include="GeneralUtilities\XmlHelpers\Serializer.cs" />
     <Compile Include="GeneralUtilities\XmlHelpers\XmlSerializer.cs" />
+    <Compile Include="GeneralUtilities\IOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ToolKitConsole\UtilConsole.csproj">

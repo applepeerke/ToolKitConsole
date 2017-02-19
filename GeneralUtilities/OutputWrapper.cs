@@ -8,7 +8,6 @@ namespace GeneralUtilities
 	public class OutputWrapper : IDisposable
 	{
 		private const string EMPTY = "";
-		private const string LOGROW = "row";
 		private ConsoleWrapper consoleWrapper = new ConsoleWrapper();
 
 		private bool IsConsoleOutput = false;
@@ -29,12 +28,8 @@ namespace GeneralUtilities
 			get { return this.isOutputSwitchedOn; }
 			set { this.isOutputSwitchedOn = value; }
 		}
-		private string xmlLogTable = "xmlLog";
-		public string XmlLogTable
-		{
-			get { return this.xmlLogTable; }
-			set { this.xmlLogTable = value; }
-		}
+		private const string XMLLOGTABLE = "xmlLog";
+
 		private int width;
 		public int Width
 		{
@@ -68,14 +63,14 @@ namespace GeneralUtilities
 			{
 				using (xmlManager = new XmlManager(configXml))
 				{
-					xmlManager.Execute(CRUD.Delete, ObjectType.Table, XmlLogTable);
-					xmlManager.Execute(CRUD.Create, ObjectType.Table, XmlLogTable);
+					xmlManager.Execute(CRUD.Delete, ObjectType.Table, XMLLOGTABLE);
+					xmlManager.Execute(CRUD.Create, ObjectType.Table, XMLLOGTABLE);
 				}
 			}
 			// 
 			if (IsLogUtilOutput)
 			{
-				LogUtil.Start(configXml);
+				LogUtil.Instance.Start(configXml);
 			}
 		}
 		#endregion Constructor
@@ -90,8 +85,8 @@ namespace GeneralUtilities
 			if (IsOutputSwitchedOn)
 			{
 				if (IsConsoleOutput) consoleWrapper.WriteLine(line);
-				if (IsLogUtilOutput) LogUtil.AddLine(line);
-				if (IsXmlOutput) xmlManager.Execute(CRUD.Create, ObjectType.Row, LOGROW, line, XmlLogTable);
+				if (IsLogUtilOutput) LogUtil.Instance.AddLine(line);
+				if (IsXmlOutput) xmlManager.WriteLine(line);
 			}
 		}
 

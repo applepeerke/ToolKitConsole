@@ -10,61 +10,68 @@ using System.Configuration;
 namespace GeneralUtilities
 {
 
-	public sealed class JournalUtil
+	public sealed class JournalUtil : IOutput
 	{
-		#region Definitions
-		private static DataTable _journal;
-		private static StreamWriter _sw;
-		private static int _journalId;
-		private static List<string> _headerRow = new List<string>();
-		private static List<string> _detailRow = new List<string>();
-		private static string _header;
-		private static string _ext;
-		private static bool _isSwitchedOn = false;
-		private static bool _journalAllConditionsBeforeSave = false;
-		private static int _textWidth = 160;
-		private static int _count_OK = 0;
-		private static int _count_ER = 0;
-		private static string _columnSeparator = ";";
-		static readonly object _lock = new object();
+		private DataTable _journal;
+		private StreamWriter _sw;
+		private int _journalId;
+		private List<string> _headerRow = new List<string>();
+		private List<string> _detailRow = new List<string>();
+		private string _header;
+		private string _ext;
+		private bool _isSwitchedOn = false;
+		private bool _journalAllConditionsBeforeSave = false;
+		private int _textWidth = 160;
+		private int _count_OK = 0;
+		private int _count_ER = 0;
+		private string _columnSeparator = ";";
+		private readonly object _lock = new object();
 
 		#region Properties
+		private static JournalUtil _instance;
+		public static JournalUtil Instance
+		{
+			get
+			{
+				if (_instance == null)
+				{
+					_instance = new JournalUtil();
+				}
+				return _instance;
+			}
+		}
+
 		public int TextWidth
 		{
 			get { return _textWidth; }
 		}
 
-		public static string ColumnSeparator
+		public  string ColumnSeparator
 		{
 			get { return _columnSeparator; }
 		}
 
-		public static bool isSwitchedOn
+		public  bool isSwitchedOn
 		{
 			get { return _isSwitchedOn; }
 		}
-		public static bool JournalAllConditionsBeforeSave
+		public  bool JournalAllConditionsBeforeSave
 		{
 			get { return _journalAllConditionsBeforeSave; }
 		}
 		#endregion
 
-		#endregion
-
 		#region Constructors
-
-		static JournalUtil()
+		private JournalUtil()
 		{
 			Initialize();
 		}
-
 		#endregion
 
 		#region Overloads
-
 		// Add record
 		// e.g. AddRecord("Fee", 40219, "my data before update", Image.Before)
-		public static void AddRecord(JournalModel journalModel)
+		public  void AddRecord(JournalModel journalModel)
 		{
 			switch (journalModel.Operation.ToString())
 			{
@@ -92,23 +99,21 @@ namespace GeneralUtilities
 			_journal.Rows.Add(journalModel.UserName, _journalId, DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff "), journalModel.Source.ToString(), journalModel.Entity, journalModel.Key, journalModel.Image.ToString(), journalModel.Operation.ToString(), journalModel.Result.ToString(), _count_OK.ToString(), _count_ER.ToString(), journalModel.Data, journalModel.UserParameter, journalModel.SpareKey1, journalModel.SpareKey2);
 			//_journal.Rows.Add(_journalId, DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff "), source.ToString(), entity, key, image.ToString(), oper.ToString(), result.ToString(), _count_OK.ToString(), _count_ER.ToString(), data, userparm, sparekey1, sparekey2);
 		}
-		public static void AddRecord(JournalModel journalModel, int result)
+		public  void AddRecord(JournalModel journalModel, int result)
 		{
 			journalModel.Result = result < -1 ? JournalResult.ER : JournalResult.OK;
 			AddRecord(journalModel);
 		}
-		public static void AddRecord(JournalModel journalModel, bool result)
+		public  void AddRecord(JournalModel journalModel, bool result)
 		{
 			journalModel.Result = result ? JournalResult.OK : JournalResult.ER;
 			AddRecord(journalModel);
 		}
-
 		#endregion Overloads
 
 		#region Public methods
-
 		// Clear journal
-		public static void Clear()
+		public  void Clear()
 		{
 			_journal.Clear();
 			_journalId = 0;
@@ -116,14 +121,14 @@ namespace GeneralUtilities
 		}
 
 		// Reset counters
-		public static void ResetCounters()
+		public  void ResetCounters()
 		{
 			_count_OK = 0;
 			_count_ER = 0;
 		}
 
 		// Export journal
-		public static void Export(bool header = true)
+		public void Export(bool header = true)
 		{
 			if (_journal.Rows.Count > 0)
 			{
@@ -153,17 +158,20 @@ namespace GeneralUtilities
 			}
 		}
 
-		public static void Dispose()
+		public void Dispose()
 		{
 			Export();
-			// this.Dispose();
 		}
 
+		public void WriteLine(string line)
+		{
+			if (string.IsNullOrEmpty(line)) return;
+			_sw.WriteLine(line);
+		}
 		#endregion
 
 		#region Private methods
-
-		private static void Initialize()
+		private void Initialize()
 		{
 			_isSwitchedOn = Convert.ToBoolean(ConfigurationManager.AppSettings["IsJournalUtilSwitchedOn"]);
 			_journalAllConditionsBeforeSave = Convert.ToBoolean(ConfigurationManager.AppSettings["JournalAllConditionsBeforeSave"]);
@@ -212,23 +220,23 @@ namespace GeneralUtilities
 			}
 		}
 
-		private static void ExportToLogUtil()
+		private  void ExportToLogUtil()
 		{
 			// Write header
-			LogUtil.AddStripe(); //---------------
-			LogUtil.AddText(_header);
-			LogUtil.AddStripe(); //---------------
+			LogUtil.Instance.AddStripe(); //---------------
+			LogUtil.Instance.AddText(_header);
+			LogUtil.Instance.AddStripe(); //---------------
 
 			// Write rows
 			foreach (DataRow row in _journal.Rows)
 			{
-				LogUtil.AddText(GetFormattedRow(row, "\t"));
+				LogUtil.Instance.AddText(GetFormattedRow(row, "\t"));
 			}
 			// End 
-			LogUtil.AddStripe(); //---------------
+			LogUtil.Instance.AddStripe(); //---------------
 		}
 
-		private static string GetFormattedRow(DataRow row, string delimiter)
+		private  string GetFormattedRow(DataRow row, string delimiter)
 		{
 			string formattedRow = string.Empty;
 			_detailRow.Clear();
@@ -244,14 +252,13 @@ namespace GeneralUtilities
 			}
 			catch (Exception ex)
 			{
-				LogUtil.AddLine("JournalUtil: GetFormattedRow", "*ERROR", ex);
+				LogUtil.Instance.AddLine("JournalUtil: GetFormattedRow", "*ERROR", ex);
 			}
 			return formattedRow;
 		}
 
-		private static void ExportToPCFile(string delimiter)
+		private void ExportToPCFile(string delimiter)
 		{
-
 			try
 			{
 				lock (_lock)
@@ -261,31 +268,30 @@ namespace GeneralUtilities
 						CreateJournalFile(_ext);
 						// Write header
 						_header = string.Join(delimiter, _headerRow.ToArray());
-						_sw.WriteLine(_header);
+						WriteLine(_header);
 					}
 				}
 
 				// Write rows
 				foreach (DataRow row in _journal.Rows)
 				{
-					_sw.WriteLine(GetFormattedRow(row, delimiter));
+					WriteLine(GetFormattedRow(row, delimiter));
 				}
 			}
 			catch (Exception ex)
 			{
 				_isSwitchedOn = false;
-				LogUtil.AddLine("JournalUtil switched off. Exception occurred.", "*ERROR", ex);
+				LogUtil.Instance.AddLine("JournalUtil switched off. Exception occurred.", "*ERROR", ex);
 				// throw ex;
 			}
-
 		}
 
-		private static void ExportToTable()
+		private  void ExportToTable()
 		{
 			throw new NotImplementedException();
 		}
 
-		private static void CreateJournalFile(string extension)
+		private  void CreateJournalFile(string extension)
 		{
 			try
 			{
@@ -302,7 +308,6 @@ namespace GeneralUtilities
 			}
 			catch (Exception ex) { throw ex; }
 		}
-
 		#endregion
 	}
 }
