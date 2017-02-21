@@ -1,13 +1,14 @@
 ﻿<Properties StartupConfiguration="{D00CCA4D-5763-4836-A4D1-09A4ABBD9499}|Default">
   <MonoDevelop.Ide.ItemProperties.XmlData PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="GeneralUtilities/BL/XmlDBManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole Status">
     <Files>
-      <File FileName="GeneralUtilities/BL/XmlTableManager.cs" Line="143" Column="31" />
-      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="145" Column="1" />
-      <File FileName="GeneralUtilities/BL/XmlDBManager.cs" Line="144" Column="1" />
+      <File FileName="GeneralUtilities/BL/XmlTableManager.cs" Line="104" Column="1" />
+      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="159" Column="1" />
+      <File FileName="GeneralUtilities/BL/XmlDBManager.cs" Line="207" Column="1" />
       <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="56" Column="7" />
       <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="80" Column="23" />
       <File FileName="GeneralUtilities/OutputWrapper.cs" Line="120" Column="15" />
+      <File FileName="ToolKitConsole Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
@@ -17,9 +18,15 @@
       <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole/Program.cs" relfile="ToolKitConsole/Program.cs" line="32" column="1" />
       <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/GeneralUtilities/BL/XmlManager.cs" relfile="GeneralUtilities/GeneralUtilities/BL/XmlManager.cs" line="308" column="1" />
       <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlManager.cs" relfile="GeneralUtilities/BL/XmlManager.cs" line="28" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="92" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="145" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="144" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="147" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="202" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="203" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="201" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="207" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="149" column="17" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="148" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="159" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="158" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
