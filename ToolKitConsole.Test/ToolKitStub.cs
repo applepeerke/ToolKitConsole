@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using UtilConsole;
 using GeneralUtilities;
@@ -14,20 +14,22 @@ namespace ToolKitConsole.Test
 		const string OK = "[OK]";
 		static ConsoleWrapper cw = new ConsoleWrapper();
 		static OutputWrapper ow;
-		static XmlManager xm;
+		static XmlTableManager xm;
+		static XmlDBManager xDbM;
 		static TxtToHtml txtToHtml;
 		static CsvToXml csvToXml;
 		static string configXml;
 		static string configXmlName = "ToolKitConsole.config";
 		static string rootDir = "/users/peterwerk/Projects/";
+		static string logDir = "/users/peterwerk/Projects/Log";
 		static string resourcesDir = "/users/peterwerk/Projects/TestResources/";
 
 		public static void Main(string[] args)
 		{
 			configXml = (Path.Combine(resourcesDir, configXmlName));
-			using (ow = new OutputWrapper(Output.All, configXml))
+			using (ow = new OutputWrapper(configXml))
 			{
-				using (xm = new XmlManager(configXml))
+				using (xm = new XmlTableManager(logDir, "xmlLog"))
 				{
 					ow.XmlManager = xm;
 					LogUtil.Instance.Start(Path.Combine(rootDir, configXml));
@@ -75,7 +77,8 @@ namespace ToolKitConsole.Test
 						}
 					case "XT":
 						{
-							xm.Execute(CRUD.Create, ObjectType.Table, EMPTY, EMPTY, EMPTY, Mode.Debug);
+							xDbM.CreateDFD();
+							xDbM.SaveDFD();
 							break;
 						}
 				}

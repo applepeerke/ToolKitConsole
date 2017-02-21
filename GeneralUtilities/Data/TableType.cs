@@ -1,6 +1,6 @@
 ﻿namespace GeneralUtilities.Data
 {
-	public enum ObjectType
+	public enum TableType
 	{
 		Xml,
 		Table,

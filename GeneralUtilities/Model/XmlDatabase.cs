@@ -9,14 +9,14 @@ namespace GeneralUtilities
         public XmlDatabase(string name)
         {
             Name = name;
-            XmlObjects = new List<XmlObject>();
+            XmlTables = new List<XmlTable>();
         }
 		// Data
         [XmlAttribute("name")]
         public string Name { get; set; }
 
-        [XmlArray("objects")]
-        [XmlArrayItem("object")]
-        public List<XmlObject> XmlObjects { get; set; }
+        [XmlArray("tables")]
+        [XmlArrayItem("table")]
+        public List<XmlTable> XmlTables { get; set; }
     }
 }
