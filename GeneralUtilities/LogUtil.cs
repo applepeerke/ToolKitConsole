@@ -1,4 +1,4 @@
-﻿#region Imports
+#region Imports
 using System;
 using System.IO;
 using System.Text;
@@ -13,7 +13,7 @@ namespace GeneralUtilities
 {
 
 	// 2015-05-04 PHE First version.
-	public class LogUtil : IOutput
+	public class LogUtil : IOutputable
 	{
 		private string configXml = string.Empty; 
 		private StreamWriter _sw;

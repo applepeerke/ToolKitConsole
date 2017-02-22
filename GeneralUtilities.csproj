@@ -68,7 +68,7 @@
     <Compile Include="GeneralUtilities\Model\XmlTable.cs" />
     <Compile Include="GeneralUtilities\XmlHelpers\Serializer.cs" />
     <Compile Include="GeneralUtilities\XmlHelpers\XmlSerializer.cs" />
-    <Compile Include="GeneralUtilities\IOutput.cs" />
+    <Compile Include="GeneralUtilities\IOutputable.cs" />
     <Compile Include="GeneralUtilities\BL\XmlDBManager.cs" />
   </ItemGroup>
   <ItemGroup>

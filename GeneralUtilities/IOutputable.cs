@@ -1,7 +1,7 @@
 ﻿using System;
 namespace GeneralUtilities
 {
-	public interface IOutput
+	public interface IOutputable
 	{
 		void WriteLine(string line);
 	}

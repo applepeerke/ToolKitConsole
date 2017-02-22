@@ -17,6 +17,7 @@ namespace GeneralUtilities
 		private string TABLES = "tables";
 
 		private XDocument doc;
+		private XElement tables;
 		private OutputWrapper ow;
 		private bool LoadedDFD = false;
 		private string className;
@@ -127,6 +128,7 @@ namespace GeneralUtilities
 			try
 			{
 				doc = XDocument.Load(DFDPath);
+				tables = doc.Element(TABLES);
 				LoadedDFD = true;
 				Log(string.Format("{0}: Loaded DFD from '{1}'", className, dFDPath));
 			}
@@ -157,54 +159,36 @@ namespace GeneralUtilities
 				doc.Save(DFDPath);
 				Log(string.Format("{0}: DFD '{1}' has been created in '{2}'", className, DBFileName, DFDPath));
 			}
-
-			//XmlDatabase.XmlTables.Add(new XmlTable(XMLLOG));
-			//XmlTable table = XmlDatabase.XmlTables.LastOrDefault();
-			//table.XmlColumns.Add(new XmlTableColumn(NAME, XMLLOGROW));
-			//table.XmlColumns.Add(new XmlTableColumn(TYPE, "string"));
-			//table.XmlColumns.Add(new XmlTableColumn("CreationDate", DateTime.Now));
-			//SerializeXml();
-
-			//XElement TableElem = new XElement(TABLE, new XAttribute(NAME, "table"));
-			//XElement newTable =
-			//	new XElement(TABLE, new XAttribute(NAME, "table"),
-			//				 new XElement("Name", new XAttribute(TYPE, "string")),
-			//				 new XElement("Latitude", new XAttribute(TYPE, "int")),
-			//				 new XElement("Longitude", new XAttribute(TYPE, "int")));
-
-			//CreateDFDTable(TableElem, newTable);
-			// Log(string.Format("{0}: Table '{1}' added to '{2}'", className, newTable, dFDPath));
 		}
 
 		public void CreateDFDTable(XElement tableName, XElement table = null)
 		{
 			if (!LoadedDFD) LoadDFD();
 
-			XElement parentElement = doc.Descendants(TABLES).FirstOrDefault();
 			if (table == null)
 			{
-				parentElement.Add(tableName);
+				tables.Add(tableName);
+				Log(string.Format("{0}: Empty table '{1}' added to '{2}'", className, table, DFDPath));
 			}
 			else
 			{
-				parentElement.Add(table);
+				tables.Add(table);
+				Log(string.Format("{0}: Populated table '{1}' added to '{2}'", className, table, DFDPath));
 			}
-			Log(string.Format("{0}: Table '{1}' added to '{2}'", className, table, DFDPath));
 		}
 
 		public void DeleteDFDTable(string table)
 		{
 			if (!LoadedDFD) LoadDFD();
-			var parent = GetTableRef(table);
-			parent.RemoveAll();
-			// Remove the empty <table /> element.
-			parent.Elements("table").Where(r => r.Element("name") == null).Remove();
-			//var tableNode = doc.Element("table");
-			//if (tableNode != null)
-			//{
-			//	tableNode.Elements("table").Where(r => r.Element("name") == null).Remove();
-			//}
-			Log(string.Format("{0}: Table '{1}' deleted from '{2}'", className, table, DFDPath));
+			if (tables != null)
+			{
+				try
+				{
+					tables.DescendantsAndSelf(TABLE).FirstOrDefault(r => r.Attribute(NAME).Value == table).Remove();
+					Log(string.Format("{0}: Table '{1}' deleted from '{2}'", className, table, DFDPath));
+				}
+				catch (System.NullReferenceException) { }
+			}
 		}
 		public XElement GetTableRef(string table)
 		{

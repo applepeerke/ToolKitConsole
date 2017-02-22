@@ -120,43 +120,75 @@ namespace ToolKitNUnitTest
 			Assert.IsNotNull(sm);
 			Assert.IsNotNullOrEmpty(sm.SelectElementValue("baseFolderPath"));
 			Assert.IsNotNullOrEmpty(sm.SelectElementValue("dBFileName"));
-			// Create file
 			string DBPath = Path.Combine(sm.SelectElementValue("baseFolderPath"), sm.SelectElementValue("dBFileName"));
 			string DBPath_Test = Path.Combine(sm.SelectElementValue("baseFolderPath"), "DB_Test.xml");
 			var dm = new XmlDBManager(configXml);
+
+			// Load DFD
+			dm.DFDPath = DBPath;
+			dm.LoadDFD();
 			// Delete Test DFD
 			dm.DFDPath = DBPath_Test;
 			dm.DeleteDFD();
 			Assert.IsFalse(File.Exists(DBPath_Test));
 			// Create Test DFD
-			dm.DFDPath = DBPath;
-			dm.LoadDFD();
 			dm.DFDPath = DBPath_Test;
 			dm.SaveDFD();
 			Assert.IsTrue(File.Exists(DBPath_Test));
-			// Create/delete a table in Test-DFD
+			// Create a table in Test DFD
 			dm.DFDPath = DBPath_Test;
-			XElement newTable =
+			XElement newTable1 =
 				new XElement("table", new XAttribute("name", "coordinates"),
 							 new XElement("Name", new XAttribute("type", "string")),
 							 new XElement("Latitude", new XAttribute("type", "int")),
 							 new XElement("Longitude", new XAttribute("type", "int")));
-			dm.CreateDFDTable(newTable);
-			dm.SaveDFD();
-			// Table must exist
+			dm.CreateDFDTable(newTable1);
 			Assert.IsNotNull(dm.GetTableRef("coordinates"));
+			// Delete the table in Test DFD
 			dm.DeleteDFDTable("coordinates");
-			dm.SaveDFD();
-			// Table must not exist
 			Assert.IsNull(dm.GetTableRef("coordinates"));
-			// Create again, now from existing DFD
-			XElement newTable2 =
+			// Create table "coordinates" again (now from existing DFD)
+			newTable1 =
 	new XElement("table", new XAttribute("name", "coordinates"),
 				 new XElement("Name", new XAttribute("type", "string")),
 				 new XElement("Latitude", new XAttribute("type", "int")),
 				 new XElement("Longitude", new XAttribute("type", "int")));
+			dm.CreateDFDTable(newTable1);
+			// Create a second table "people"
+			XElement newTable2 =
+	new XElement("table", new XAttribute("name", "people"),
+				 new XElement("Firstname", new XAttribute("type", "string")),
+				 new XElement("Lastname", new XAttribute("type", "string")),
+				 new XElement("Initials", new XAttribute("type", "string")));
 			dm.CreateDFDTable(newTable2);
+			// Delete 2nd table
+			dm.DeleteDFDTable("people");
+			Assert.IsNull(dm.GetTableRef("people"));
+			Assert.IsNotNull(dm.GetTableRef("coordinates"));
+			// Add 2nd table again
+			newTable2 =
+			new XElement("table", new XAttribute("name", "people"),
+			 new XElement("Firstname", new XAttribute("type", "string")),
+			 new XElement("Lastname", new XAttribute("type", "string")),
+			 new XElement("Initials", new XAttribute("type", "string")));
+			dm.CreateDFDTable(newTable2);
+			// Save to disk, load and verify that the 2 tables must exist.
 			dm.SaveDFD();
+			dm.LoadDFD();
+			Assert.IsNotNull(dm.GetTableRef("coordinates"));
+			Assert.IsNotNull(dm.GetTableRef("people"));
+			// Delete 1st table
+			dm.DeleteDFDTable("coordinates");
+			Assert.IsNull(dm.GetTableRef("coordinates"));
+			Assert.IsNotNull(dm.GetTableRef("people"));
+			// Delete 2nd table
+			dm.DeleteDFDTable("people");
+			Assert.IsNull(dm.GetTableRef("people"));
+			// Save to disk, load and verify that the 2 tables do not exist.
+			dm.SaveDFD();
+			dm.LoadDFD();
+			Assert.IsNull(dm.GetTableRef("coordinates"));
+			Assert.IsNull(dm.GetTableRef("people"));
 		}
 
 		[Test()]

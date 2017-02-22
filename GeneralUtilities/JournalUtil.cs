@@ -10,7 +10,7 @@ using System.Configuration;
 namespace GeneralUtilities
 {
 
-	public sealed class JournalUtil : IOutput
+	public sealed class JournalUtil : IOutputable
 	{
 		private DataTable _journal;
 		private StreamWriter _sw;
