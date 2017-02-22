@@ -2,26 +2,30 @@ using UtilConsole;
 using GeneralUtilities.Data;
 using System;
 using System.Text;
+using System.Linq;
+using System.IO;
 
 namespace GeneralUtilities
 {
 	public class OutputWrapper : IDisposable
 	{
 		private const string EMPTY = "";
-		private const string LOGROW = "row";
 		private ConsoleWrapper consoleWrapper = new ConsoleWrapper();
 
-		private bool IsConsoleOutput = false;
-		private bool IsXmlOutput = false;
-		private bool IsLogUtilOutput = false;
+		private bool hasConsoleOutput = false;
+		private bool hasXmlOutput = false;
+		private bool hasLogUtilOutput = false;
 		private string stripe;
+		private string className;
+		private string xmlDirName;
+		private string xmlFileName;
 
 		#region Properties
-		private XmlManager xmlManager;
-		public XmlManager XmlManager
+		private XmlTableManager xmlTableManager;
+		public XmlTableManager XmlManager
 		{
-			get { return this.xmlManager; }
-			set { this.xmlManager = value; }
+			get { return this.xmlTableManager; }
+			set { this.xmlTableManager = value; }
 		}
 		private bool isOutputSwitchedOn = true;
 		public bool IsOutputSwitchedOn
@@ -29,12 +33,7 @@ namespace GeneralUtilities
 			get { return this.isOutputSwitchedOn; }
 			set { this.isOutputSwitchedOn = value; }
 		}
-		private string xmlLogTable = "xmlLog";
-		public string XmlLogTable
-		{
-			get { return this.xmlLogTable; }
-			set { this.xmlLogTable = value; }
-		}
+
 		private int width;
 		public int Width
 		{
@@ -43,44 +42,77 @@ namespace GeneralUtilities
 		}
 		#endregion Properties
 		#region Constructor
-		public OutputWrapper(Output output, string configXml = EMPTY)
+		public OutputWrapper(string configXml)
 		{
+			Initialize(configXml);
 			// Fill stripe
 			StringBuilder sb = new StringBuilder();
 			for (uint i = 0; i < Width; i++)
 				sb.Append("-");
 			stripe = sb.ToString();
 
-			if (output == Output.Console) IsConsoleOutput = true;
-			else if (output == Output.Xml) IsXmlOutput = true;
-			else if (output == Output.LogUtil) IsLogUtilOutput = true;
-			else if (output == Output.All)
-			{
-				IsConsoleOutput = true;
-				if (!string.IsNullOrEmpty(configXml))
-				{
-					IsXmlOutput = true;
-				}
-				IsLogUtilOutput = true;
-			}
-			// Xml output
-			if (IsXmlOutput)
-			{
-				using (xmlManager = new XmlManager(configXml))
-				{
-					xmlManager.Execute(CRUD.Delete, ObjectType.Table, XmlLogTable);
-					xmlManager.Execute(CRUD.Create, ObjectType.Table, XmlLogTable);
-				}
-			}
 			// 
-			if (IsLogUtilOutput)
+			if (hasLogUtilOutput)
 			{
-				LogUtil.Start(configXml);
+				LogUtil.Instance.Start(configXml);
 			}
 		}
-		#endregion Constructor
+		#endregion
 
 		#region public methods
+		private void Initialize(string configXml)
+		{
+			className = GetType().Name.Split('.').Last();
+			try
+			{
+				GetSettings(configXml);
+				Verify();
+			}
+			catch (Exception e)
+			{
+				ErrorHandling(e);
+			}
+			Log(string.Format("Starting {0}...", className));
+		}
+		// Get settings
+		private void GetSettings(string configXml)
+		{
+			// Try to get directory from .config
+			try
+			{
+				if (File.Exists(configXml))
+				{
+					SettingsManager settings = new SettingsManager(configXml, className);
+					hasConsoleOutput = Convert.ToBoolean(settings.SelectElementValue("hasConsoleOutput"));
+					hasLogUtilOutput = Convert.ToBoolean(settings.SelectElementValue("hasLogUtilOutput"));
+					hasXmlOutput = Convert.ToBoolean(settings.SelectElementValue("hasXmlOutput"));
+					xmlDirName = settings.SelectElementValue("xmlDirName");
+					xmlFileName = settings.SelectElementValue("xmlFileName");
+					// Derived
+					if (hasXmlOutput) xmlTableManager = new XmlTableManager(xmlDirName, xmlFileName);
+				}
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+		}
+
+		// Verify input
+		private void Verify()
+		{
+			Log("=======================================================================");
+			Log(string.Format("{0}", className.ToUpper()));
+			Log("=======================================================================");
+			Log(string.Format("Has Console output  . . . . . . . . . . : {0}", hasConsoleOutput));
+			Log(string.Format("Has LogUtil output  . . . . . . . . . . : {0}", hasLogUtilOutput));
+			Log(string.Format("Has xml output  . . . . . . . . . . . . : {0}", hasXmlOutput));
+			Log(string.Format("Xml folder name . . . . . . . . . . . . : {0}", xmlDirName));
+			Log(string.Format("Xml file name . . . . . . . . . . . . . : {0}", xmlFileName));
+			Log("=======================================================================");
+			Log("Press any key to continue (Ctrl-C = Cancel)");
+			ReadKey();
+		}
 		/// <summary>
 		/// Writes the line.
 		/// </summary>
@@ -89,9 +121,9 @@ namespace GeneralUtilities
 		{
 			if (IsOutputSwitchedOn)
 			{
-				if (IsConsoleOutput) consoleWrapper.WriteLine(line);
-				if (IsLogUtilOutput) LogUtil.AddLine(line);
-				if (IsXmlOutput) xmlManager.Execute(CRUD.Create, ObjectType.Row, LOGROW, line, XmlLogTable);
+				if (hasConsoleOutput) consoleWrapper.WriteLine(line);
+				if (hasLogUtilOutput) LogUtil.Instance.AddLine(line);
+				if (hasXmlOutput) xmlTableManager.Create(line);
 			}
 		}
 
@@ -114,16 +146,16 @@ namespace GeneralUtilities
 
 		public void ReadKey()
 		{
-			if (IsConsoleOutput) consoleWrapper.Pause();
+			if (hasConsoleOutput) consoleWrapper.Pause();
 		}
 		public void AddStripe()
 		{
 			WriteLine(stripe);
 		}
-		private void SwitchOn()
+		public void Log(string line)
 		{
+			WriteLine(line);
 		}
-
 		private void ErrorHandling(Exception e)
 		{
 			string message = (e.InnerException != null) ? e.InnerException.Message : e.Message;
@@ -132,7 +164,7 @@ namespace GeneralUtilities
 
 		public void Dispose()
 		{
-			if (xmlManager != null) xmlManager.Save();
+			if (xmlTableManager != null) xmlTableManager.Dispose();
 		}
 		#endregion
 	}

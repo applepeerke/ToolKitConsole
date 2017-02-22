@@ -1,0 +1,7 @@
+/Users/peterwerk/GitHub/ToolKitConsole/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/bin/Debug/GeneralUtilities.dll.mdb
+/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/bin/Debug/GeneralUtilities.dll
+/Users/peterwerk/GitHub/ToolKitConsole/obj/Debug/GeneralUtilities.dll
+/Users/peterwerk/GitHub/ToolKitConsole/obj/Debug/GeneralUtilities.dll.mdb
+/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/bin/Debug/ToolKitConsole.exe
+/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/bin/Debug/ToolKitConsole.exe.mdb

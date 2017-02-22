@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
 using GeneralUtilities.Data;
 
 namespace GeneralUtilities
@@ -20,9 +23,9 @@ namespace GeneralUtilities
 			xmlPath = path;
 			if (string.IsNullOrEmpty(xmlPath) || !File.Exists(xmlPath))
 			{
+				xmlPath = string.Empty;
 				parentNode = null;
 				throw new ApplicationException(string.Format("Xml path not found: '{0}'", xmlPath));
-
 			}
 			else
 			{
@@ -37,6 +40,25 @@ namespace GeneralUtilities
 		}
 		#endregion Constructor
 		#region public methods
+		public Dictionary<string, string> GetSettings(string appname)
+		{
+			var settings = new Dictionary<string, string>();
+			if (!string.IsNullOrEmpty(xmlPath))
+			{
+				XDocument doc = XDocument.Load(xmlPath);
+				var appName = doc.Element(appname);
+				if (!string.IsNullOrEmpty(appname))
+				{
+					var elems = appName.Descendants().ToArray();
+					foreach (XElement e in elems)
+					{
+						settings.Add(e.Name.ToString(), e.Value);
+					}
+				}
+			}
+			return settings;
+		}
+
 		public string SelectElementValue(string name, AsT asT = AsT.strT)
 		{
 			// Default return value

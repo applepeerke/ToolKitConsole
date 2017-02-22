@@ -4,28 +4,28 @@ using System.ComponentModel;
 
 namespace GeneralUtilities
 {
-    public class XmlObjectAttribute
+    public class XmlTableColumn
     {
 		// Constructors
-        public XmlObjectAttribute()
+        public XmlTableColumn()
         {
         }
 
-        public XmlObjectAttribute(string name, string value)
+        public XmlTableColumn(string name, string value)
         {
             Name = name;
             Value = value;
             DataType = typeof(string).Name;
         }
 
-        public XmlObjectAttribute(string name, int value)
+        public XmlTableColumn(string name, int value)
         {
             Name = name;
             Value = value.ToString();
             DataType = typeof(int).Name;
         }
 
-        public XmlObjectAttribute(string name, DateTime value)
+        public XmlTableColumn(string name, DateTime value)
         {
             Name = name;
             if ((value.ToOADate() - (int)(value.ToOADate())) > 0)

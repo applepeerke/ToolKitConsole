@@ -58,16 +58,18 @@
     <Compile Include="GeneralUtilities\OutputWrapper.cs" />
     <Compile Include="GeneralUtilities\Data\Output.cs" />
     <Compile Include="GeneralUtilities\Converters\CsvToXml.cs" />
-    <Compile Include="GeneralUtilities\BL\XmlManager.cs" />
+    <Compile Include="GeneralUtilities\BL\XmlTableManager.cs" />
     <Compile Include="GeneralUtilities\BL\SettingsManager.cs" />
-    <Compile Include="GeneralUtilities\Data\ObjectType.cs" />
+    <Compile Include="GeneralUtilities\Data\TableType.cs" />
     <Compile Include="GeneralUtilities\Data\CRUD.cs" />
     <Compile Include="GeneralUtilities\Data\Mode.cs" />
-    <Compile Include="GeneralUtilities\Model\XmlObjectAttribute.cs" />
+    <Compile Include="GeneralUtilities\Model\XmlTableColumn.cs" />
     <Compile Include="GeneralUtilities\Model\XmlDatabase.cs" />
-    <Compile Include="GeneralUtilities\Model\XmlObject.cs" />
+    <Compile Include="GeneralUtilities\Model\XmlTable.cs" />
     <Compile Include="GeneralUtilities\XmlHelpers\Serializer.cs" />
     <Compile Include="GeneralUtilities\XmlHelpers\XmlSerializer.cs" />
+    <Compile Include="GeneralUtilities\IOutputable.cs" />
+    <Compile Include="GeneralUtilities\BL\XmlDBManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ToolKitConsole\UtilConsole.csproj">
