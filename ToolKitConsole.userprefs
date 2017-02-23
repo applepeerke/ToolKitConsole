@@ -1,13 +1,19 @@
 ﻿<Properties StartupConfiguration="{D00CCA4D-5763-4836-A4D1-09A4ABBD9499}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole.Test/Properties/AssemblyInfo.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GeneralUtilities/BL/SettingsManager.cs">
     <Files>
-      <File FileName="GeneralUtilities/JournalUtil.cs" Line="291" Column="4" />
-      <File FileName="ToolKitConsole.Test/Properties/AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="46" Column="1" />
+      <File FileName="GeneralUtilities/ToolKitConsole.config" Line="9" Column="9" />
+      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="39" Column="31" />
+      <File FileName="GeneralUtilities/OutputWrapper.cs" Line="98" Column="4" />
+      <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="63" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/ToolKitStub.cs" relfile="ToolKitConsole.Test/ToolKitStub.cs" line="109" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/ToolKitStub.cs" relfile="ToolKitConsole.Test/ToolKitStub.cs" line="46" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.ToolKitConsole.Test PreferredExecutionTarget="MonoDevelop.Default" />

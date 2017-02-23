@@ -10,7 +10,7 @@ namespace ToolKitNUnitTest
 	public class ToolKitTest
 	{
 		string configXml = "/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/ToolKitConsole.config";
-		string logPath = "/users/peterwerk/Projects/Log";
+		string logPath;
 		QAManager qa;
 		OutputWrapper ow;
 		ConsoleWrapper cw;
@@ -33,9 +33,9 @@ namespace ToolKitNUnitTest
 		[Test()]
 		public void SettingsManager()
 		{
-			sm = new SettingsManager(configXml, "logutil");
+			sm = new SettingsManager(configXml, "app");
 			Assert.IsNotNull(sm);
-			logPath = sm.SelectElementValue("DirName");
+			logPath = sm.SelectElementValue("logPath");
 			Assert.IsNotEmpty(logPath);
 		}
 

@@ -11,33 +11,47 @@ namespace ToolKitConsole.Test
 	{
 		const string EMPTY = "";
 		const string OK = "[OK]";
+		static string configXml = "/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/ToolKitConsole.config";
 		static ConsoleWrapper cw = new ConsoleWrapper();
 		static OutputWrapper ow;
 		static XmlTableManager xm;
 		static XmlDBManager xDbM;
 		static TxtToHtml txtToHtml;
 		static CsvToXml csvToXml;
-		static string configXml;
-		static string configXmlName = "ToolKitConsole.config";
-		static string rootDir = "/users/peterwerk/Projects/";
-		static string logDir = "/users/peterwerk/Projects/Log";
-		static string resourcesDir = "/users/peterwerk/Projects/TestResources/";
+		static string logPath;
+		static string resourcesPath;
 
 		public static void Main(string[] args)
 		{
-			configXml = (Path.Combine(resourcesDir, configXmlName));
+			GetSettings();
 			using (ow = new OutputWrapper(configXml))
 			{
-				using (xm = new XmlTableManager(logDir, "xmlLog"))
+				using (xm = new XmlTableManager(logPath, "xmlLog"))
 				{
 					ow.XmlManager = xm;
-					LogUtil.Instance.Start(Path.Combine(rootDir, configXml));
+					LogUtil.Instance.Start(Path.Combine(logPath, configXml));
 					Process();
-
 				}
 			}
 		}
-
+		private static void GetSettings()
+		{
+			try
+			{
+				if (File.Exists(configXml))
+				{
+					SettingsManager settings = new SettingsManager(configXml, "app");
+					//root = settings.SelectElementValue("root");
+					logPath = settings.SelectElementValue("logPath");
+					resourcesPath = settings.SelectElementValue("resourcesPath");
+					//outputPath = settings.SelectElementValue("outputPath");
+				}
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+		}
 		private static void Process()
 		{
 			do
@@ -88,23 +102,27 @@ namespace ToolKitConsole.Test
 
 		private static void GraphViz()
 		{
+			var settings = new SettingsManager(configXml, "graphviz");
+			string baseFolderPath = settings.SelectElementValue("baseFolderPath");
+			string inputFileName = settings.SelectElementValue("inputFileName");
+			string outputRootFolderName = settings.SelectElementValue("outputRootFolderName");
 			Log("Starting creating GraphViz...");
 			List<string> extensions = new List<string>() { "png", "ico", "tiff", "jpg" };
 			List<string> commands = new List<string>() { "all", "dot", "neato", "fdp", "sfdp", "twopi", "circo" };
 			// Input file
-			string dir = resourcesDir;
+			string inputFolder = baseFolderPath;
 			string Yes = Enums.YN.Y.ToString();
-			string answer = cw.Ask(new QAManager(Enums.QAType.YN, Yes, string.Format("Use directory '{0}'?", resourcesDir)));
+			string answer = cw.Ask(new QAManager(Enums.QAType.YN, Yes, string.Format("Use input directory '{0}'?", inputFolder)));
 			if (answer != Yes)
 			{
-				dir = cw.AskDir(new QAManager(Enums.QAType.Dir));
+				inputFolder = cw.AskDir(new QAManager(Enums.QAType.Dir));
 			}
-			string inputFile = "GraphViz_Color.dot";
-			answer = cw.Ask(new QAManager(Enums.QAType.YN, Yes, string.Format("Use filename '{0}'?", inputFile)));
+			answer = cw.Ask(new QAManager(Enums.QAType.YN, Yes, string.Format("Use filename '{0}'?", inputFileName)));
 			if (answer != Yes)
 			{
-				inputFile = cw.AskFileName(new QAManager(Enums.QAType.File), dir);
+				inputFileName = cw.AskFileName(new QAManager(Enums.QAType.File), inputFolder);
 			}
+
 			string command = cw.Ask(new QAManager(commands, "all", "GraphViz command"));
 			string extension = cw.Ask(new QAManager(extensions, "png", "Extension"));
 			// Canceled
@@ -117,19 +135,20 @@ namespace ToolKitConsole.Test
 				try
 				{
 					// Verify
-					string filename = Path.GetFileNameWithoutExtension(inputFile);
-					string path = Path.Combine(dir, inputFile);
-					string outpFile = string.Concat(inputFile, ".", extension);
+					string filename = Path.GetFileNameWithoutExtension(inputFileName);
+					string path = Path.Combine(inputFolder, inputFileName);
+					string outpFile = string.Concat(filename, ".", extension);
 					Log("-------------------------------------------------------------------");
-					Log(string.Format("Input file...........: {0}", inputFile));
+					Log(string.Format("Input folder.........: {0}", inputFolder));
+					Log(string.Format("Input file...........: {0}", inputFileName));
 					Log(string.Format("Output file..........: {0}", outpFile));
-					Log(string.Format("Output folder........: {0}", dir));
+					Log(string.Format("Output folder........: {0}", outputRootFolderName));
 					Log(string.Format("GraphViz command.....: {0}", command));
 					Log(string.Format("Extension............: {0}", extension));
 					Log("-------------------------------------------------------------------");
 					cw.Pause();
 					// Output file
-					string outPathPrefix = Path.Combine(dir, filename);
+					string outPathPrefix = Path.Combine(outputRootFolderName, filename);
 					if (command.ToLower() == "all")
 					{
 						ExecuteGraphViz("dot", path, outPathPrefix, extension);
@@ -167,7 +186,10 @@ namespace ToolKitConsole.Test
 
 				// To avoid deadlocks, always read the output stream first and then wait.
 				string output = p.StandardOutput.ReadToEnd();
-				Log(output);
+
+				if (!string.IsNullOrEmpty(output)) { Log(output);}
+				else Log(string.Format("executed {0} {1}", command, args));
+
 				p.WaitForExit();
 			}
 			catch (Exception e)

@@ -47,6 +47,7 @@
     <Folder Include="GeneralUtilities\Resources\CsvToXml\" />
     <Folder Include="GeneralUtilities\Resources\TxtToHtml\" />
     <Folder Include="GeneralUtilities\Resources\XmlDBManager\" />
+    <Folder Include="GeneralUtilities\Resources\GraphViz\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneralUtilities\Model\JournalImage.cs" />
@@ -91,6 +92,7 @@
     <None Include="GeneralUtilities\Resources\TxtToHtml\background.gif" />
     <None Include="GeneralUtilities\Resources\TxtToHtml\input.txt" />
     <None Include="GeneralUtilities\Resources\XmlDBManager\DB.xml" />
+    <None Include="GeneralUtilities\Resources\GraphViz\GraphViz_Color.dot" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

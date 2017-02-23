@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table name="xmlLog">
+  <row id="1" value="First row" />
+  <row id="2" value="-----------------------------" />
+  <row id="3" value="  GV = GraphViz" />
+  <row id="4" value="  CX = Convert .csv to .xml" />
+  <row id="5" value="  TH = Convert .txt to .html" />
+  <row id="6" value="  XT = XML table" />
+  <row id="7" value="-----------------------------" />
+  <row id="8" value="Starting creating GraphViz..." />
+  <row id="9" value="Processing has been canceled by the enduser." />
+  <row id="10" value="[OK]" />
+  <row id="11" value="-----------------------------" />
+  <row id="12" value="  GV = GraphViz" />
+  <row id="13" value="  CX = Convert .csv to .xml" />
+  <row id="14" value="  TH = Convert .txt to .html" />
+  <row id="15" value="  XT = XML table" />
+  <row id="16" value="-----------------------------" />
+</table>
