@@ -1,5 +1,5 @@
 ﻿using System;
-namespace UtilConsole
+namespace GeneralUtilities
 {
 	public static class Enums
 	{

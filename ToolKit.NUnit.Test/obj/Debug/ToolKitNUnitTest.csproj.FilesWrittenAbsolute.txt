@@ -6,7 +6,5 @@
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/nunit.framework.dll
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKitConsole.Test.exe
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKitConsole.Test.exe.mdb
-/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKitConsole.exe
-/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/ToolKitConsole.exe.mdb
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/GeneralUtilities.dll
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/bin/Debug/GeneralUtilities.dll.mdb

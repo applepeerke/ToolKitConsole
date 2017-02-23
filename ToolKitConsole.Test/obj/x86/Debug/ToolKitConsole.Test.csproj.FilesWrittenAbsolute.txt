@@ -3,7 +3,5 @@
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/bin/Debug/ToolKitConsole.Test.exe
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/obj/x86/Debug/ToolKitConsole.Test.exe
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/obj/x86/Debug/ToolKitConsole.Test.exe.mdb
-/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/bin/Debug/ToolKitConsole.exe
-/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/bin/Debug/ToolKitConsole.exe.mdb
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/bin/Debug/GeneralUtilities.dll
 /Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/bin/Debug/GeneralUtilities.dll.mdb

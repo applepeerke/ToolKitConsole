@@ -36,10 +36,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ToolKitConsole\UtilConsole.csproj">
-      <Project>{C08387CF-B3DF-4D31-96AF-FBDAC96D18DA}</Project>
-      <Name>UtilConsole</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GeneralUtilities.csproj">
       <Project>{F7C63B4A-A60F-4F02-8FF7-75840BCD54B2}</Project>
       <Name>GeneralUtilities</Name>

@@ -3,19 +3,41 @@ using System.IO;
 using System.Xml.Linq;
 using GeneralUtilities;
 using NUnit.Framework;
-using UtilConsole;
 
 namespace ToolKitNUnitTest
 {
 	[TestFixture()]
 	public class ToolKitTest
 	{
-		string configXml = "/users/peterwerk/Projects/TestResources/ToolKitConsole.config";
+		string configXml = "/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/ToolKitConsole.config";
 		string logPath = "/users/peterwerk/Projects/Log";
 		QAManager qa;
 		OutputWrapper ow;
 		ConsoleWrapper cw;
 		SettingsManager sm;
+
+
+		[Test()]
+		public void SettingsManager_ConfigXml_Content()
+		{
+			// Does config file exist?
+			Assert.IsTrue(File.Exists(configXml));
+			// Are the settings for all apps present in the config file?
+			string[] apps = new string[] { "txttohtml", "csvtoxml", "logutil", "xmldbmanager" };
+			foreach (string app in apps)
+			{
+				Assert.IsNotNull(new SettingsManager(configXml, app));
+			}
+		}
+
+		[Test()]
+		public void SettingsManager()
+		{
+			sm = new SettingsManager(configXml, "logutil");
+			Assert.IsNotNull(sm);
+			logPath = sm.SelectElementValue("DirName");
+			Assert.IsNotEmpty(logPath);
+		}
 
 		[Test()]
 		public void QAManagerConstructDefault()
@@ -62,18 +84,7 @@ namespace ToolKitNUnitTest
 			Assert.AreEqual(cw.Values[0], Enums.YN.C);
 		}
 
-		[Test()]
-		public void SettingsManager_ConfigXml_Content()
-		{
-			// Does config file exist?
-			Assert.IsTrue(File.Exists(configXml));
-			// Are the settings for all apps present in the config file?
-			string[] apps = new string[] { "txttohtml", "csvtoxml", "logutil", "xmldbmanager" };
-			foreach (string app in apps)
-			{
-				Assert.IsNotNull(new SettingsManager(configXml, app));
-			}
-		}
+
 
 		[Test()]
 		public void OutputWrapper()
@@ -110,16 +121,15 @@ namespace ToolKitNUnitTest
 			tm.Delete(id);
 			// Read the deleted row, it must be gone.
 			row = tm.Read(id);
-			Assert.IsNullOrEmpty(row);
+			Assert.IsEmpty(row);
 		}
 
 		[Test()]
 		public void XmlDBManager()
 		{
 			sm = new SettingsManager(configXml, "xmldbmanager");
-			Assert.IsNotNull(sm);
-			Assert.IsNotNullOrEmpty(sm.SelectElementValue("baseFolderPath"));
-			Assert.IsNotNullOrEmpty(sm.SelectElementValue("dBFileName"));
+			Assert.IsNotEmpty(sm.SelectElementValue("baseFolderPath"));
+			Assert.IsNotEmpty(sm.SelectElementValue("dBFileName"));
 			string DBPath = Path.Combine(sm.SelectElementValue("baseFolderPath"), sm.SelectElementValue("dBFileName"));
 			string DBPath_Test = Path.Combine(sm.SelectElementValue("baseFolderPath"), "DB_Test.xml");
 			var dm = new XmlDBManager(configXml);
