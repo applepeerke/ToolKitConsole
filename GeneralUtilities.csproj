@@ -43,6 +43,11 @@
     <Folder Include="GeneralUtilities\Converters\" />
     <Folder Include="GeneralUtilities\BL\" />
     <Folder Include="GeneralUtilities\XmlHelpers\" />
+    <Folder Include="GeneralUtilities\Resources\" />
+    <Folder Include="GeneralUtilities\Resources\CsvToXml\" />
+    <Folder Include="GeneralUtilities\Resources\TxtToHtml\" />
+    <Folder Include="GeneralUtilities\Resources\XmlDBManager\" />
+    <Folder Include="GeneralUtilities\Resources\GraphViz\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneralUtilities\Model\JournalImage.cs" />
@@ -70,12 +75,24 @@
     <Compile Include="GeneralUtilities\XmlHelpers\XmlSerializer.cs" />
     <Compile Include="GeneralUtilities\IOutputable.cs" />
     <Compile Include="GeneralUtilities\BL\XmlDBManager.cs" />
+    <Compile Include="GeneralUtilities\ConsoleWrapper.cs" />
+    <Compile Include="GeneralUtilities\BL\QAManager.cs" />
+    <Compile Include="GeneralUtilities\Data\Enums.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ToolKitConsole\UtilConsole.csproj">
       <Project>{C08387CF-B3DF-4D31-96AF-FBDAC96D18DA}</Project>
       <Name>UtilConsole</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GeneralUtilities\ToolKitConsole.config" />
+    <None Include="GeneralUtilities\Resources\CsvToXml\input.csv" />
+    <None Include="GeneralUtilities\Resources\TxtToHtml\style.css" />
+    <None Include="GeneralUtilities\Resources\TxtToHtml\background.gif" />
+    <None Include="GeneralUtilities\Resources\TxtToHtml\input.txt" />
+    <None Include="GeneralUtilities\Resources\XmlDBManager\DB.xml" />
+    <None Include="GeneralUtilities\Resources\GraphViz\GraphViz_Color.dot" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

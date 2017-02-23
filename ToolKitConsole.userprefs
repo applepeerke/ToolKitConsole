@@ -1,39 +1,21 @@
 ﻿<Properties StartupConfiguration="{D00CCA4D-5763-4836-A4D1-09A4ABBD9499}|Default">
-  <MonoDevelop.Ide.ItemProperties.XmlData PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole Status">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GeneralUtilities/BL/SettingsManager.cs">
     <Files>
-      <File FileName="GeneralUtilities/BL/XmlTableManager.cs" Line="104" Column="1" />
-      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="159" Column="1" />
-      <File FileName="GeneralUtilities/BL/XmlDBManager.cs" Line="207" Column="1" />
-      <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="56" Column="7" />
-      <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="80" Column="23" />
-      <File FileName="GeneralUtilities/OutputWrapper.cs" Line="120" Column="15" />
-      <File FileName="ToolKitConsole Status" />
+      <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="46" Column="1" />
+      <File FileName="GeneralUtilities/ToolKitConsole.config" Line="9" Column="9" />
+      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="39" Column="31" />
+      <File FileName="GeneralUtilities/OutputWrapper.cs" Line="98" Column="4" />
+      <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="63" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole/FIle.cs" relfile="ToolKitConsole/FIle.cs" line="169" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole/Program.cs" relfile="ToolKitConsole/Program.cs" line="32" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/GeneralUtilities/BL/XmlManager.cs" relfile="GeneralUtilities/GeneralUtilities/BL/XmlManager.cs" line="308" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlManager.cs" relfile="GeneralUtilities/BL/XmlManager.cs" line="28" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="147" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="202" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="203" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="201" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/BL/XmlDBManager.cs" relfile="GeneralUtilities/BL/XmlDBManager.cs" line="207" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="149" column="17" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="148" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="159" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="158" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/ToolKitStub.cs" relfile="ToolKitConsole.Test/ToolKitStub.cs" line="109" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/ToolKitStub.cs" relfile="ToolKitConsole.Test/ToolKitStub.cs" line="46" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.ToolKitConsole.Test PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.UtilConsole PreferredExecutionTarget="MonoDevelop.Default" />
-  <DisabledProjects>
-    <String>LogUtil/GeneralUtilities.csproj</String>
-  </DisabledProjects>
 </Properties>

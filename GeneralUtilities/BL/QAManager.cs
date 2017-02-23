@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UtilConsole
+namespace GeneralUtilities
 {
 	public class QAManager
 	{
