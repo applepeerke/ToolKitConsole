@@ -8,6 +8,10 @@ using GeneralUtilities.Data;
 
 namespace GeneralUtilities
 {
+	/// <summary>
+	/// Settings manager.
+	/// Maintains the settings for 1 app, and the general <app> settings.
+	/// </summary>
 	public class SettingsManager
 	{
 		private XmlDocument xmlDocument;
@@ -17,9 +21,8 @@ namespace GeneralUtilities
 		private string parentNodeRoot = "/configuration/appSettings/";
 
 		#region Constructor
-		public SettingsManager(string path, string subNodeName)
+		public SettingsManager(string path, string appName)
 		{
-			parentNodeName = string.Concat(parentNodeRoot, subNodeName.ToLower());
 			xmlPath = path;
 			if (string.IsNullOrEmpty(xmlPath) || !File.Exists(xmlPath))
 			{
@@ -31,28 +34,35 @@ namespace GeneralUtilities
 			{
 				xmlDocument = new XmlDocument();
 				xmlDocument.Load(xmlPath);
-				parentNode = xmlDocument.SelectSingleNode(parentNodeName);
-				if (parentNode == null)
+				if (xmlDocument == null)
 				{
-					throw new ApplicationException(string.Format("ParentNode name '{0}' not found in '{1}'", parentNodeName, xmlPath));
+					throw new ApplicationException(string.Format("Xml document '{0}' could not be loaded", xmlPath));
 				}
 			}
+			GetSettings(appName);
 		}
-		#endregion Constructor
+		#endregion
 		#region public methods
 		public Dictionary<string, string> GetSettings(string appname)
 		{
 			var settings = new Dictionary<string, string>();
-			if (!string.IsNullOrEmpty(xmlPath))
+
+			if (!string.IsNullOrEmpty(appname))
 			{
-				XDocument doc = XDocument.Load(xmlPath);
-				var appName = doc.Element(appname);
-				if (!string.IsNullOrEmpty(appname))
+				parentNodeName = string.Concat(parentNodeRoot, appname.ToLower());
+				parentNode = xmlDocument.SelectSingleNode(parentNodeName);
+
+				if (parentNode != null)
 				{
-					var elems = appName.Descendants().ToArray();
-					foreach (XElement e in elems)
+					XDocument doc = XDocument.Load(xmlPath);
+					var appName = doc.Element(appname);
+					if (appName != null)
 					{
-						settings.Add(e.Name.ToString(), e.Value);
+						var elems = appName.Descendants().ToArray();
+						foreach (XElement e in elems)
+						{
+							settings.Add(e.Name.ToString(), e.Value);
+						}
 					}
 				}
 			}
