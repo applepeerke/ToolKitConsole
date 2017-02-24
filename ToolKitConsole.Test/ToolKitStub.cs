@@ -19,7 +19,6 @@ namespace ToolKitConsole.Test
 		static TxtToHtml txtToHtml;
 		static CsvToXml csvToXml;
 		static string logPath;
-		static string resourcesPath;
 
 		public static void Main(string[] args)
 		{
@@ -43,7 +42,7 @@ namespace ToolKitConsole.Test
 					SettingsManager settings = new SettingsManager(configXml, "app");
 					//root = settings.SelectElementValue("root");
 					logPath = settings.SelectElementValue("logPath");
-					resourcesPath = settings.SelectElementValue("resourcesPath");
+					// resourcesPath = settings.SelectElementValue("resourcesPath");
 					//outputPath = settings.SelectElementValue("outputPath");
 				}
 			}
@@ -90,7 +89,8 @@ namespace ToolKitConsole.Test
 						}
 					case "XT":
 						{
-							xDbM.CreateDFD();
+							xDbM = new XmlDBManager(ow, configXml);
+							xDbM.LoadDFD();
 							xDbM.SaveDFD();
 							break;
 						}

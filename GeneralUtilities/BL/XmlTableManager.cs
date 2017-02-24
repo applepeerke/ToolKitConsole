@@ -13,6 +13,7 @@ namespace GeneralUtilities
 		private string ROW = "row";
 		private string NAME = "name";
 		private string VALUE = "value";
+		private string TIMESTAMP = "dateTimeCreation";
 		private string ID = "id";
 		private string tableName;
 		private XDocument doc;
@@ -55,7 +56,7 @@ namespace GeneralUtilities
 			XElement lastRow = doc.Descendants(ROW).LastOrDefault();
 			if (lastRow == null)
 			{
-				XElement newRow = new XElement(ROW, new XAttribute(ID, id.ToString()), new XAttribute(VALUE, value));
+				XElement newRow = new XElement(ROW, new XAttribute(ID, id.ToString()), new XAttribute(TIMESTAMP, GetTimeStamp()), new XAttribute(VALUE, value));
 				XElement parent = doc.Root;
 				parent.AddAfterSelf(newRow);
 			}
@@ -63,7 +64,7 @@ namespace GeneralUtilities
 			{
 				// Last row id + 1
 				id = Convert.ToInt32(lastRow.Attribute("id").Value) + 1;
-				XElement newRow = new XElement(ROW, new XAttribute(ID, id.ToString()), new XAttribute(VALUE, value));
+				XElement newRow = new XElement(ROW, new XAttribute(ID, id.ToString()), new XAttribute(TIMESTAMP, GetTimeStamp()), new XAttribute(VALUE, value));
 				lastRow.AddAfterSelf(newRow);
 			}
 			return id;
@@ -141,6 +142,10 @@ namespace GeneralUtilities
 		{
 			doc = XDocument.Load(XmlPath);
 			table = doc.Element(TABLE);
+		}
+		private string GetTimeStamp()
+		{
+			return DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
 		}
 		#endregion
 	}

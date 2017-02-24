@@ -47,6 +47,7 @@ namespace GeneralUtilities
 		// If called from OutputWrapper, the ow must be null.
 		public XmlDBManager(string configXml)
 		{
+			ow = new OutputWrapper(configXml);
 			Initialize(configXml);
 		}
 		public XmlDBManager(OutputWrapper outputWrapper, string configXml)
@@ -57,6 +58,86 @@ namespace GeneralUtilities
 		#endregion Constructors
 
 		#region Public methods
+
+		public void DeleteDFD()
+		{
+			string ext = Path.GetExtension(DFDPath).ToLower();
+			if (ext == ".xml")
+			{
+				File.Delete(DFDPath);
+				Log(string.Format("{0}: Deleted DFD in '{1}'", className, DFDPath));
+			}
+			else
+			{
+				throw new Exception(string.Format("{0}: File '{1}' to delete is not a xml file.", className, DFDPath));
+			}
+		}
+
+		public void LoadDFD()
+		{
+			doc = XDocument.Load(DFDPath);
+			tables = doc.Element(TABLES);
+			LoadedDFD = true;
+			Log(string.Format("{0}: Loaded DFD from '{1}'", className, dFDPath));
+		}
+
+		public void SaveDFD()
+		{
+			if (LoadedDFD)
+			{
+				doc.Save(DFDPath);
+				Log(string.Format("{0}: Saved DFD in '{1}'", className, DFDPath));
+			}
+		}
+
+		public void CreateDFDTable(XElement tableName, XElement table = null)
+		{
+			if (!LoadedDFD) LoadDFD();
+
+			if (table == null)
+			{
+				tables.Add(tableName);
+				Log(string.Format("{0}: Empty table '{1}' added to '{2}'", className, tableName, DFDPath));
+			}
+			else
+			{
+				tables.Add(table);
+				Log(string.Format("{0}: Populated table '{1}' added to '{2}'", className, tableName, DFDPath));
+			}
+		}
+
+		public void DeleteDFDTable(string table)
+		{
+			if (!LoadedDFD) LoadDFD();
+			if (tables != null)
+			{
+				try
+				{
+					tables.DescendantsAndSelf(TABLE).FirstOrDefault(r => r.Attribute(NAME).Value == table).Remove();
+					Log(string.Format("{0}: Table '{1}' deleted from '{2}'", className, table, DFDPath));
+				}
+				catch (System.NullReferenceException) { }
+			}
+		}
+		public XElement GetTableRef(string table)
+		{
+			try
+			{
+				XElement parentElement = doc.Descendants(TABLE).FirstOrDefault(r => r.Attribute(NAME).Value == table);
+				return parentElement;
+			}
+			catch (System.NullReferenceException)
+			{
+				return null;
+			}
+		}
+		public void Dispose()
+		{
+			SaveDFD();
+		}
+
+		#endregion
+		#region Private methods
 		private void Initialize(string configXml)
 		{
 			className = GetType().Name.Split('.').Last();
@@ -65,6 +146,7 @@ namespace GeneralUtilities
 			{
 				GetSettings(configFile);
 				Verify();
+				CreateDFD();
 			}
 			catch (Exception e)
 			{
@@ -108,106 +190,27 @@ namespace GeneralUtilities
 			if (ow != null) ow.ReadKey();
 		}
 
-		public void DeleteDFD()
-		{
-			string ext = Path.GetExtension(DFDPath).ToLower();
-			if (ext == ".xml")
-			{
-				File.Delete(DFDPath);
-				Log(string.Format("{0}: Deleted DFD in '{1}'", className, DFDPath));
-			}
-			else
-			{
-				throw new Exception(string.Format("{0}: File '{1}' to delete is not a xml file.", className, DFDPath));
-			}
-		}
-
-		public void LoadDFD()
+		// Creates the dfd.
+		private void CreateDFD()
 		{
 			try
 			{
-				doc = XDocument.Load(DFDPath);
-				tables = doc.Element(TABLES);
-				LoadedDFD = true;
-				Log(string.Format("{0}: Loaded DFD from '{1}'", className, dFDPath));
-			}
-			catch (FileNotFoundException)
-			{
-				CreateDFD();
-				doc = XDocument.Load(DFDPath);
-			}
-		}
-
-		public void SaveDFD()
-		{
-			if (LoadedDFD)
-			{
-				doc.Save(DFDPath);
-				Log(string.Format("{0}: Saved DFD in '{1}'", className, DFDPath));
-			}
-		}
-
-		public void CreateDFD()
-		{
-			if (!File.Exists(DFDPath))
-			{
-				doc =
-					new XDocument(
-						new XElement(TABLES)
-					);
-				doc.Save(DFDPath);
-				Log(string.Format("{0}: DFD '{1}' has been created in '{2}'", className, DBFileName, DFDPath));
-			}
-		}
-
-		public void CreateDFDTable(XElement tableName, XElement table = null)
-		{
-			if (!LoadedDFD) LoadDFD();
-
-			if (table == null)
-			{
-				tables.Add(tableName);
-				Log(string.Format("{0}: Empty table '{1}' added to '{2}'", className, table, DFDPath));
-			}
-			else
-			{
-				tables.Add(table);
-				Log(string.Format("{0}: Populated table '{1}' added to '{2}'", className, table, DFDPath));
-			}
-		}
-
-		public void DeleteDFDTable(string table)
-		{
-			if (!LoadedDFD) LoadDFD();
-			if (tables != null)
-			{
-				try
+				if (!File.Exists(DFDPath))
 				{
-					tables.DescendantsAndSelf(TABLE).FirstOrDefault(r => r.Attribute(NAME).Value == table).Remove();
-					Log(string.Format("{0}: Table '{1}' deleted from '{2}'", className, table, DFDPath));
+					doc =
+						new XDocument(
+							new XElement(TABLES)
+						);
+					doc.Save(DFDPath);
+					Log(string.Format("{0}: DFD '{1}' has been created in '{2}'", className, DBFileName, DFDPath));
 				}
-				catch (System.NullReferenceException) { }
 			}
-		}
-		public XElement GetTableRef(string table)
-		{
-			try
+			catch (Exception e)
 			{
-				XElement parentElement = doc.Descendants(TABLE).FirstOrDefault(r => r.Attribute(NAME).Value == table);
-				return parentElement;
-			}
-			catch (System.NullReferenceException)
-			{
-				return null;
+				if (ow == null) throw e;
+				ErrorHandling(e);
 			}
 		}
-		public void Dispose()
-		{
-			SaveDFD();
-		}
-
-		#endregion
-		#region Private methods
 
 		// Saves the xml.
 		private void SerializeXml()

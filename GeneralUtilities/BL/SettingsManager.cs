@@ -16,7 +16,6 @@ namespace GeneralUtilities
 	{
 		private XmlDocument xmlDocument;
 		private XmlNode parentNode;
-		private string parentNodeName;
 		private string xmlPath;
 		private string parentNodeRoot = "/configuration/appSettings/";
 
@@ -49,20 +48,14 @@ namespace GeneralUtilities
 
 			if (!string.IsNullOrEmpty(appname))
 			{
-				parentNodeName = string.Concat(parentNodeRoot, appname.ToLower());
-				parentNode = xmlDocument.SelectSingleNode(parentNodeName);
+				string parentNodePath = string.Concat(parentNodeRoot, appname.ToLower());
+				parentNode = xmlDocument.SelectSingleNode(parentNodePath);
 
 				if (parentNode != null)
 				{
-					XDocument doc = XDocument.Load(xmlPath);
-					var appName = doc.Element(appname);
-					if (appName != null)
+					foreach (XmlNode node in parentNode.ChildNodes)
 					{
-						var elems = appName.Descendants().ToArray();
-						foreach (XElement e in elems)
-						{
-							settings.Add(e.Name.ToString(), e.Value);
-						}
+						settings.Add(node.Name, node.InnerText);
 					}
 				}
 			}
