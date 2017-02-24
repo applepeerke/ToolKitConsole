@@ -27,7 +27,7 @@ namespace GeneralUtilities
 		private string inputFileName = string.Empty;
 		private string indexType = string.Empty;
 		private string indexTitle = string.Empty;
-		private string outputRootFolderName = string.Empty;
+		private string outputPath = string.Empty;
 		private string outputSubFolderName = string.Empty;
 		private string backgroundImage = string.Empty;
 		private string styleSheet = string.Empty;
@@ -93,8 +93,7 @@ namespace GeneralUtilities
 					inputFileName = settings.SelectElementValue("inputFileName");
 					indexType = settings.SelectElementValue("indexType");
 					indexTitle = settings.SelectElementValue("indexTitle");
-					outputRootFolderName = settings.SelectElementValue("outputRootFolderName");
-					outputSubFolderName = settings.SelectElementValue("outputSubFolderName");
+					outputPath = settings.SelectElementValue("outputPath");
 					outputSubFolderName = settings.SelectElementValue("outputSubFolderName");
 					backgroundImage = settings.SelectElementValue("backgroundImage");
 					styleSheet = settings.SelectElementValue("styleSheet");
@@ -122,9 +121,10 @@ namespace GeneralUtilities
 				Directory.CreateDirectory(baseFolderPath);
 			}
 			// Get output subfolder (create if not exists)
-			if (!Directory.Exists(Path.Combine(baseFolderPath, outputSubFolderName)))
+			outputSubFolderName = Path.Combine(outputPath, outputSubFolderName);
+			if (!Directory.Exists(outputSubFolderName))
 			{
-				Directory.CreateDirectory(Path.Combine(baseFolderPath, outputSubFolderName));
+				Directory.CreateDirectory(outputSubFolderName);
 			}
 		}
 
@@ -135,16 +135,16 @@ namespace GeneralUtilities
 			Log(string.Format("{0}", className.ToUpper()));
 			Log("=======================================================================");
 			Log(string.Format("Prefix . . . . . . . . . . . . . . . : {0}", prefix));
-			Log(string.Format("Textfile base folderpath . . . . . . : {0}", baseFolderPath));
-			Log(string.Format("Resource folder name . . . . . . . . : {0}", resourceFolderName));
-			Log(string.Format("Textfile input file name   . . . . . : {0}", inputFileName));
+			Log(string.Format("Input base folderpath  . . . . . . . : {0}", baseFolderPath));
+			Log(string.Format("Input subfolder name . . . . . . . . : {0}", resourceFolderName));
+			Log(string.Format("Input textfile name  . . . . . . . . : {0}", inputFileName));
 			Log(string.Format("Index type . . . . . . . . . . . . . : {0}", indexType));
 			if (indexType != "None")
 			{
-				Log(string.Format("index.htm output folder  . . . . . . : {0}", outputRootFolderName));
+				Log(string.Format("index.htm output folder  . . . . . . : {0}", outputPath));
 				Log(string.Format("index.htm title  . . . . . . . . . . : {0}", indexTitle));
+				Log(string.Format("HTML output subfolder  . . . . . . . : {0}", outputSubFolderName));
 			}
-			Log(string.Format("HTML output subfolder  . . . . . . . : {0}", outputSubFolderName));
 			Log(string.Format("Background image to copy . . . . . . : {0}", backgroundImage));
 			Log(string.Format("Stylesheet to copy . . . . . . . . . : {0}", styleSheet));
 			Log("=======================================================================");
@@ -166,8 +166,8 @@ namespace GeneralUtilities
 				errors.Add(string.Format("Background image '{0}' to copy does not exist in '{1}'.", backgroundImage, resourceFolderPath));
 			}
 			// Validate input file
-			outputSubFolderName = Path.Combine(baseFolderPath, outputRootFolderName, outputSubFolderName);
-			text = File.ReadAllLines(Path.Combine(baseFolderPath, inputFileName), Encoding.GetEncoding("iso-8859-1"));
+
+			text = File.ReadAllLines(Path.Combine(baseFolderPath, resourceFolderName, inputFileName), Encoding.GetEncoding("iso-8859-1"));
 			Log("-----------------------------------------------------------------------");
 			Log("Validating input file...");
 
@@ -282,7 +282,7 @@ namespace GeneralUtilities
 			AddHeader(indexTitle, true);
 			AddIndexBody();
 			AddFooter();
-			WriteToFile(Path.Combine(baseFolderPath, "index.htm"));
+			WriteToFile(Path.Combine(outputPath, "index.htm"));
 
 			// Wrap up
 			txtFile.Clear();

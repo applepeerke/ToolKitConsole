@@ -37,6 +37,11 @@ namespace ToolKitNUnitTest
 			Assert.IsNotNull(sm);
 			logPath = sm.SelectElementValue("logPath");
 			Assert.IsNotEmpty(logPath);
+			// Not existing application, still <app> settings must be filled.
+			sm = new SettingsManager(configXml, "ThisDoesNotExist");
+			Assert.IsNotNull(sm);
+			var appSettings = sm.GetSettings("app");
+			Assert.Greater(appSettings.Count, 0);
 		}
 
 		[Test()]

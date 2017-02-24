@@ -1,18 +1,45 @@
 ﻿<Properties StartupConfiguration="{D00CCA4D-5763-4836-A4D1-09A4ABBD9499}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="GeneralUtilities/BL/SettingsManager.cs">
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole Status">
     <Files>
-      <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="46" Column="1" />
-      <File FileName="GeneralUtilities/ToolKitConsole.config" Line="9" Column="9" />
-      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="39" Column="31" />
-      <File FileName="GeneralUtilities/OutputWrapper.cs" Line="98" Column="4" />
-      <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="63" Column="1" />
+      <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="1" Column="1" />
+      <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="52" Column="6" />
+      <File FileName="GeneralUtilities/BL/XmlTableManager.cs" Line="1" Column="1" />
+      <File FileName="GeneralUtilities/LogUtil.cs" Line="391" Column="94" />
+      <File FileName="GeneralUtilities/Converters/TxtToHtml.cs" Line="1" Column="1" />
+      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="1" Column="1" />
+      <File FileName="GeneralUtilities/BL/XmlDBManager.cs" Line="1" Column="1" />
+      <File FileName="GeneralUtilities/ToolKitConsole.config" Line="1" Column="1" />
+      <File FileName="GeneralUtilities/Resources/XmlDBManager/DB.xml" Line="1" Column="1" />
+      <File FileName="GeneralUtilities/OutputWrapper.cs" Line="124" Column="1" />
+      <File FileName="ToolKitConsole Status" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole.Test/ToolKitStub.cs">
+    <Files>
+      <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="49" Column="1" />
+      <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="46" Column="25" />
+      <File FileName="GeneralUtilities/BL/XmlTableManager.cs" Line="67" Column="117" />
+      <File FileName="GeneralUtilities/LogUtil.cs" Line="391" Column="94" />
+      <File FileName="GeneralUtilities/Converters/TxtToHtml.cs" Line="277" Column="5" />
+      <File FileName="ToolKit.NUnit.Test/ToolKitTest.cs" Line="144" Column="1" />
+      <File FileName="GeneralUtilities/BL/XmlDBManager.cs" Line="55" Column="1" />
+      <File FileName="GeneralUtilities/ToolKitConsole.config" Line="5" Column="21" />
+      <File FileName="GeneralUtilities/Resources/XmlDBManager/DB.xml" Line="1" Column="1" />
+      <File FileName="GeneralUtilities/OutputWrapper.cs" Line="124" Column="1" />
+>>>>>>> XML-Database
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="ToolKitConsole" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/ToolKitStub.cs" relfile="ToolKitConsole.Test/ToolKitStub.cs" line="109" column="1" />
-      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKitConsole.Test/ToolKitStub.cs" relfile="ToolKitConsole.Test/ToolKitStub.cs" line="46" column="1" />
+      <Breakpoint file="/Users/peterwerk/GitHub/ToolKitConsole/ToolKit.NUnit.Test/ToolKitTest.cs" relfile="ToolKit.NUnit.Test/ToolKitTest.cs" line="144" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

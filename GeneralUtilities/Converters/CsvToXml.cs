@@ -16,7 +16,7 @@ namespace GeneralUtilities
 		private string inputFilePath = string.Empty;
 		// Settings
 		private string baseFolderPath = string.Empty;
-		private string outputRootFolderName = string.Empty;
+		private string outputPath = string.Empty;
 		private char splitChar = ';';
 		private string inputFileName = string.Empty;
 		private string outputFolder = string.Empty;
@@ -62,7 +62,7 @@ namespace GeneralUtilities
 			{
 				SettingsManager settings = new SettingsManager(configXml, className);
 				baseFolderPath = settings.SelectElementValue("baseFolderPath");
-				outputRootFolderName = settings.SelectElementValue("outputRootFolderName");
+				outputPath = settings.SelectElementValue("outputPath");
 				inputFileName = settings.SelectElementValue("inputFileName");
 				splitChar = Convert.ToChar(settings.SelectElementValue("splitChar"));
 			}
@@ -71,7 +71,7 @@ namespace GeneralUtilities
 		private void ConfigureOutput()
 		{
 			// outputfolder is a subfolder of the basefolder.
-			outputFolder = Path.Combine(baseFolderPath, outputRootFolderName);
+			outputFolder = Path.Combine(baseFolderPath, outputPath);
 			if (!Directory.Exists(outputFolder))
 			{
 				Directory.CreateDirectory(outputFolder);
@@ -85,7 +85,7 @@ namespace GeneralUtilities
 			Log("=======================================================================");
 			Log(string.Format("Csv file base folderpath . . . . . . : {0}", baseFolderPath));
 			Log(string.Format("Textfile input file name   . . . . . : {0}", inputFileName));
-			Log(string.Format("XML output root folder name  . . . . : {0}", outputRootFolderName));
+			Log(string.Format("XML output root folder name  . . . . : {0}", outputPath));
 			Log(string.Format("XML output folder name   . . . . . . : {0}", outputFolder));
 			Log(string.Format("Split character  . . . . . . . . . . : '{0}'", splitChar));
 			Log("=======================================================================");

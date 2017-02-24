@@ -11,6 +11,7 @@ namespace ToolKitConsole.Test
 	{
 		const string EMPTY = "";
 		const string OK = "[OK]";
+		static string APPLICATION = "app";
 		static string configXml = "/Users/peterwerk/GitHub/ToolKitConsole/GeneralUtilities/ToolKitConsole.config";
 		static ConsoleWrapper cw = new ConsoleWrapper();
 		static OutputWrapper ow;
@@ -18,12 +19,15 @@ namespace ToolKitConsole.Test
 		static XmlDBManager xDbM;
 		static TxtToHtml txtToHtml;
 		static CsvToXml csvToXml;
+<<<<<<< HEAD
+		static string logPath = "/Users/peterwerk/Projects/Log";
+=======
 		static string logPath;
-		static string resourcesPath;
+>>>>>>> XML-Database
 
 		public static void Main(string[] args)
 		{
-			GetSettings();
+			//GetSettings();
 			using (ow = new OutputWrapper(configXml))
 			{
 				using (xm = new XmlTableManager(logPath, "xmlLog"))
@@ -40,11 +44,13 @@ namespace ToolKitConsole.Test
 			{
 				if (File.Exists(configXml))
 				{
-					SettingsManager settings = new SettingsManager(configXml, "app");
-					//root = settings.SelectElementValue("root");
+					SettingsManager settings = new SettingsManager(configXml, APPLICATION);
 					logPath = settings.SelectElementValue("logPath");
-					resourcesPath = settings.SelectElementValue("resourcesPath");
+<<<<<<< HEAD
+=======
+					// resourcesPath = settings.SelectElementValue("resourcesPath");
 					//outputPath = settings.SelectElementValue("outputPath");
+>>>>>>> XML-Database
 				}
 			}
 			catch (Exception e)
@@ -90,7 +96,8 @@ namespace ToolKitConsole.Test
 						}
 					case "XT":
 						{
-							xDbM.CreateDFD();
+							xDbM = new XmlDBManager(ow, configXml);
+							xDbM.LoadDFD();
 							xDbM.SaveDFD();
 							break;
 						}
@@ -105,7 +112,7 @@ namespace ToolKitConsole.Test
 			var settings = new SettingsManager(configXml, "graphviz");
 			string baseFolderPath = settings.SelectElementValue("baseFolderPath");
 			string inputFileName = settings.SelectElementValue("inputFileName");
-			string outputRootFolderName = settings.SelectElementValue("outputRootFolderName");
+			string outputPath = settings.SelectElementValue("outputPath");
 			Log("Starting creating GraphViz...");
 			List<string> extensions = new List<string>() { "png", "ico", "tiff", "jpg" };
 			List<string> commands = new List<string>() { "all", "dot", "neato", "fdp", "sfdp", "twopi", "circo" };
@@ -142,13 +149,13 @@ namespace ToolKitConsole.Test
 					Log(string.Format("Input folder.........: {0}", inputFolder));
 					Log(string.Format("Input file...........: {0}", inputFileName));
 					Log(string.Format("Output file..........: {0}", outpFile));
-					Log(string.Format("Output folder........: {0}", outputRootFolderName));
+					Log(string.Format("Output folder........: {0}", outputPath));
 					Log(string.Format("GraphViz command.....: {0}", command));
 					Log(string.Format("Extension............: {0}", extension));
 					Log("-------------------------------------------------------------------");
 					cw.Pause();
 					// Output file
-					string outPathPrefix = Path.Combine(outputRootFolderName, filename);
+					string outPathPrefix = Path.Combine(outputPath, filename);
 					if (command.ToLower() == "all")
 					{
 						ExecuteGraphViz("dot", path, outPathPrefix, extension);
