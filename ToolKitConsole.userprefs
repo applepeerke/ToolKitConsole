@@ -1,5 +1,6 @@
 ﻿<Properties StartupConfiguration="{D00CCA4D-5763-4836-A4D1-09A4ABBD9499}|Default">
 <<<<<<< HEAD
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole Status">
     <Files>
       <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="1" Column="1" />
@@ -16,6 +17,10 @@
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole.Test/ToolKitStub.cs">
     <Files>
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="ToolKitConsole.Test/ToolKitStub.cs">
+    <Files>
+>>>>>>> XML-Database
       <File FileName="GeneralUtilities/BL/SettingsManager.cs" Line="49" Column="1" />
       <File FileName="ToolKitConsole.Test/ToolKitStub.cs" Line="46" Column="25" />
       <File FileName="GeneralUtilities/BL/XmlTableManager.cs" Line="67" Column="117" />
@@ -26,6 +31,9 @@
       <File FileName="GeneralUtilities/ToolKitConsole.config" Line="5" Column="21" />
       <File FileName="GeneralUtilities/Resources/XmlDBManager/DB.xml" Line="1" Column="1" />
       <File FileName="GeneralUtilities/OutputWrapper.cs" Line="124" Column="1" />
+<<<<<<< HEAD
+>>>>>>> XML-Database
+=======
 >>>>>>> XML-Database
     </Files>
     <Pads>

@@ -20,10 +20,7 @@ namespace GeneralUtilities
 		private XmlDocument xmlDocument;
 		private XmlNode parentAppNode;
 		private XmlNode parentNode;
-<<<<<<< HEAD
 		private string appNodeName;
-=======
->>>>>>> XML-Database
 		private string xmlPath;
 		private Dictionary<string, string> appSettings;
 
@@ -42,7 +39,7 @@ namespace GeneralUtilities
 			xmlDocument.Load(xmlPath);
 
 			appNodeName = string.Concat(parentNodeRoot, APPLICATION.ToLower());
-			string parentNodeName = string.Concat(parentNodeRoot, subNodeName.ToLower());
+			string parentNodeName = string.Concat(parentNodeRoot, appName.ToLower());
 
 			// Populate a dictionary with the general <app> settings.
 			parentAppNode = GetParentNode(appNodeName);
@@ -51,13 +48,11 @@ namespace GeneralUtilities
 			// Get the requested parent node.
 			if (parentNodeName == appNodeName)
 			{
-<<<<<<< HEAD
 				parentNode = parentAppNode;
 			}
 			else
 			{
 				parentNode = GetParentNode(parentNodeName);
-=======
 				xmlDocument = new XmlDocument();
 				xmlDocument.Load(xmlPath);
 				if (xmlDocument == null)
@@ -85,8 +80,8 @@ namespace GeneralUtilities
 						settings.Add(node.Name, node.InnerText);
 					}
 				}
->>>>>>> XML-Database
 			}
+			return settings;
 		}
 
 		public string SelectElementValue(string name, AsT asT = AsT.strT)
@@ -128,6 +123,9 @@ namespace GeneralUtilities
 			return result;
 		}
 
+		#endregion
+		#region private methods
+
 		private XmlNode GetParentNode(string nodeName)
 		{
 			var node = xmlDocument.SelectSingleNode(nodeName);
@@ -142,9 +140,11 @@ namespace GeneralUtilities
 			string result = name;
 			if (appSettings != null && appSettings.Count > 0 && name.StartsWith("*app", StringComparison.CurrentCulture))
 			{
-				var key = name.Remove(0, 4).ToLower();
-				if (!string.IsNullOrEmpty(key))
+				//Remove "*app" and change to Camel case
+				var key = name.Remove(0, 4);
+				if (!string.IsNullOrEmpty(key) && key.Length > 0)
 				{
+					key = string.Concat(key.Substring(0, 1).ToLower(), key.Substring(1));
 					if (appSettings.ContainsKey(key))
 					{
 						result = appSettings[key];
@@ -154,28 +154,5 @@ namespace GeneralUtilities
 			return result;
 		}
 		#endregion
-		#region public methods
-		// Returns a dict of application settings. Key is in lowercase.
-		public Dictionary<string, string> GetSettings(string appname)
-		{
-			var settings = new Dictionary<string, string>();
-
-			if (!string.IsNullOrEmpty(xmlPath))
-			{
-				XmlNode parentN = parentNode;
-				// <app> is a special node
-				if (appname == APPLICATION) parentN = parentAppNode;
-
-				if (parentN != null)
-
-					foreach (XmlNode node in parentN.ChildNodes)
-					{
-						settings.Add(node.Name.ToLower(), SubstituteSpecialValues(node.InnerText));
-					}
-			}
-			return settings;
-		}
-
-		#endregion public methods
 	}
 }

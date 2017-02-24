@@ -19,15 +19,11 @@ namespace ToolKitConsole.Test
 		static XmlDBManager xDbM;
 		static TxtToHtml txtToHtml;
 		static CsvToXml csvToXml;
-<<<<<<< HEAD
-		static string logPath = "/Users/peterwerk/Projects/Log";
-=======
 		static string logPath;
->>>>>>> XML-Database
 
 		public static void Main(string[] args)
 		{
-			//GetSettings();
+			GetSettings();
 			using (ow = new OutputWrapper(configXml))
 			{
 				using (xm = new XmlTableManager(logPath, "xmlLog"))
@@ -46,11 +42,8 @@ namespace ToolKitConsole.Test
 				{
 					SettingsManager settings = new SettingsManager(configXml, APPLICATION);
 					logPath = settings.SelectElementValue("logPath");
-<<<<<<< HEAD
-=======
 					// resourcesPath = settings.SelectElementValue("resourcesPath");
 					//outputPath = settings.SelectElementValue("outputPath");
->>>>>>> XML-Database
 				}
 			}
 			catch (Exception e)
